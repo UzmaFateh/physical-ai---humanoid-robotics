@@ -1,0 +1,7 @@
+# Ignore everything by default
+*
+
+# Whitelist essential files for npm package
+!build/
+!README.md
+!LICENSE
