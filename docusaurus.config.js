@@ -70,7 +70,7 @@ const config = {
             label: 'Modules',
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/UzmaFateh/physical-ai---humanoid-robotics.git',
             label: 'GitHub',
             position: 'right',
           },

@@ -21,13 +21,13 @@ export default function Home() {
                 Start Learning
               </Link>
                
-              {/* <Link
+              <Link
                 className="button button--secondary button--lg"
                 style={{ marginLeft: '1rem' }}
-                to="https://github.com/facebook/docusaurus"
+                to="https://github.com/UzmaFateh/physical-ai---humanoid-robotics.git"
               >
                 GitHub
-              </Link> */}
+              </Link>
             </div>
           </div>
 
