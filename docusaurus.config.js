@@ -67,7 +67,7 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Modules',
+            label: 'TextBook',
           },
           {
             href: 'https://github.com/UzmaFateh/physical-ai---humanoid-robotics.git',
