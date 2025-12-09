@@ -51,6 +51,13 @@ const config = {
     ],
   ],
 
+  scripts: [
+    {
+      src: '/rag-chatbot-embed.js',
+      async: true,
+      defer: true,
+    },
+  ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
