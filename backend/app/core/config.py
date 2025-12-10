@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 from typing import List, Optional
+import os
 
 
 class Settings(BaseSettings):
@@ -13,22 +14,22 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "info"
 
     # Security
-    API_KEY: str
-    SECRET_KEY: str = "your-secret-key-here"  # In production, use a strong secret key
+    API_KEY: str = os.getenv("API_KEY", "default-api-key")
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "4f9b8c2e1a7d5f3b8e0c9d6a1f2e7b4c3d8a9e0f1b2c3d4e5f6a7b8c9d0e1f2")  # In production, use a strong secret key
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     # Database
-    DATABASE_URL: str
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./rag_chatbot.db")
 
     # Qdrant
-    QDRANT_URL: str
-    QDRANT_API_KEY: Optional[str] = None
+    QDRANT_URL: str = os.getenv("QDRANT_URL", "http://localhost:6333")
+    QDRANT_API_KEY: Optional[str] = os.getenv("QDRANT_API_KEY", None)
     QDRANT_COLLECTION_NAME: str = "documentation_chunks"
 
     # Gemini
-    GEMINI_API_KEY: str
-    GEMINI_MODEL_NAME: str = "gemini-pro"
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "AIzaSyAvSq9AVdYQzx0uBeVy39f1WXDlgLZZdBU")
+    GEMINI_MODEL_NAME: str = "gemini-2.5-flash"
 
     # CORS
     ALLOWED_ORIGINS: List[str] = ["*"]  # In production, specify exact origins

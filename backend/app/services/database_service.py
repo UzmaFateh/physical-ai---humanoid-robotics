@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, ForeignKey, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session, relationship
 from sqlalchemy.sql import func
@@ -13,9 +13,37 @@ logger = logging.getLogger(__name__)
 # SQLAlchemy setup
 Base = declarative_base()
 
-# Create engine and session
-engine = create_engine("postgresql://user:password@localhost:5432/rag_chatbot")
+# Create engine and session - using SQLite for development
+import os
+
+# Use database from environment settings or fallback to SQLite
+db_url = os.getenv("DATABASE_URL", "sqlite:///./rag_chatbot.db")
+# For SQLite, we need special handling
+if db_url.startswith("sqlite"):
+    engine = create_engine(
+        db_url,
+        connect_args={"check_same_thread": False}  # Required for SQLite
+    )
+else:
+    # For PostgreSQL or other databases
+    engine = create_engine(db_url)
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+    software_background = Column(String, nullable=True)
+    hardware_background = Column(String, nullable=True)
+    experience_level = Column(String, nullable=True)
+    additional_info = Column(String, nullable=True)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=func.now())
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 
 
 class Conversation(Base):

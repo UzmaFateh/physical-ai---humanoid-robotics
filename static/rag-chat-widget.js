@@ -10,6 +10,7 @@ class RAGChatWidget extends HTMLElement {
         this.apiKey = this.getAttribute('api-key') || '';
         this.selectedText = '';
         this.sessionId = null;
+        this.authToken = localStorage.getItem('authToken') || null;
     }
 
     connectedCallback() {
@@ -345,12 +346,21 @@ class RAGChatWidget extends HTMLElement {
 
     async createSession() {
         try {
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+
+            // Include auth token if available
+            if (this.authToken) {
+                headers['Authorization'] = `Bearer ${this.authToken}`;
+            } else if (this.apiKey) {
+                // Fallback to API key if no auth token
+                headers['Authorization'] = `Bearer ${this.apiKey}`;
+            }
+
             const response = await fetch(`${this.apiEndpoint}/api/v1/conversations`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.apiKey}`
-                },
+                headers: headers,
                 body: JSON.stringify({
                     metadata: {
                         source_page: window.location.href,
@@ -371,12 +381,21 @@ class RAGChatWidget extends HTMLElement {
 
     async callAPI(message) {
         try {
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+
+            // Include auth token if available
+            if (this.authToken) {
+                headers['Authorization'] = `Bearer ${this.authToken}`;
+            } else if (this.apiKey) {
+                // Fallback to API key if no auth token
+                headers['Authorization'] = `Bearer ${this.apiKey}`;
+            }
+
             const response = await fetch(`${this.apiEndpoint}/api/v1/rag/query`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.apiKey}`
-                },
+                headers: headers,
                 body: JSON.stringify({
                     query: message,
                     selected_text: this.selectedText || message,
@@ -403,6 +422,41 @@ class RAGChatWidget extends HTMLElement {
     async sendMessage(message) {
         // This will be called from the chat interface
         return await this.callAPI(message);
+    }
+
+    // Method to update auth token when it changes
+    updateAuthToken(token) {
+        this.authToken = token;
+        if (token) {
+            localStorage.setItem('authToken', token);
+            // Dispatch auth change event so other components can update
+            window.dispatchEvent(new CustomEvent('authChange'));
+        } else {
+            localStorage.removeItem('authToken');
+            // Dispatch auth change event
+            window.dispatchEvent(new CustomEvent('authChange'));
+        }
+    }
+
+    // Method to check if user is authenticated
+    isAuthenticated() {
+        return !!this.authToken;
+    }
+
+    // Method to get user info from token (in a real app, you'd decode the JWT)
+    getUserInfo() {
+        if (!this.authToken) return null;
+
+        try {
+            // In a real implementation, you would decode the JWT to get user info
+            // For now, we'll just return a placeholder
+            return {
+                isAuthenticated: true
+            };
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return null;
+        }
     }
 }
 

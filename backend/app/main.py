@@ -3,6 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.router import api_router
 from app.core.config import settings
 from app.core.middleware import add_middleware
+from app.services.init_db import init_db
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Initialize the database on startup
+    init_db()
+    yield
 
 app = FastAPI(
     title="RAG Chatbot API",
@@ -10,7 +18,8 @@ app = FastAPI(
     version="1.0.0",
     openapi_url="/api/openapi.json",
     docs_url="/api/docs",
-    redoc_url="/api/redoc"
+    redoc_url="/api/redoc",
+    lifespan=lifespan
 )
 
 # Add CORS middleware

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1 import embeddings, rag, conversations
+from app.api.v1 import embeddings, rag, conversations, auth
 
 api_router = APIRouter()
 
@@ -7,3 +7,4 @@ api_router = APIRouter()
 api_router.include_router(embeddings.router, prefix="/embeddings", tags=["embeddings"])
 api_router.include_router(rag.router, prefix="/rag", tags=["rag"])
 api_router.include_router(conversations.router, prefix="/conversations", tags=["conversations"])
+api_router.include_router(auth.router, prefix="", tags=["auth"])

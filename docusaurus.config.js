@@ -57,7 +57,43 @@ const config = {
       async: true,
       defer: true,
     },
+    {
+      src: '/js/auth-navbar.js',
+      async: true,
+      defer: true,
+    },
   ],
+
+  themes: [
+  ],
+
+  plugins: [
+    // Add a plugin to configure webpack devServer
+    async function configureDevServer(context, options) {
+      return {
+        name: 'dev-server-config-plugin',
+        configureWebpack(config, isServer) {
+          if (!isServer) {
+            // Only apply this in development mode for client-side builds
+            return {
+              devServer: {
+                proxy: [
+                  {
+                    context: ['/api', '/auth'],
+                    target: process.env.BACKEND_URL || 'http://localhost:8000',
+                    changeOrigin: true,
+                    secure: false,
+                  }
+                ]
+              }
+            };
+          }
+          return {};
+        }
+      };
+    }
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -76,11 +112,6 @@ const config = {
             position: 'left',
             label: 'TextBook',
           },
-          {
-            href: 'https://github.com/UzmaFateh/physical-ai---humanoid-robotics.git',
-            label: 'GitHub',
-            position: 'right',
-          },
         ],
       },
       footer: {
@@ -92,6 +123,24 @@ const config = {
         darkTheme: require('prism-react-renderer').themes.dracula,
       },
     }),
+
+  // Move the devServer config to customFields
+  customFields: {
+    devServer: {
+      proxy: {
+        '/api': {
+          target: process.env.BACKEND_URL || 'http://localhost:8000',
+          changeOrigin: true,
+          secure: false, // Set to true in production with proper SSL
+        },
+        '/auth': {
+          target: process.env.BACKEND_URL || 'http://localhost:8000',
+          changeOrigin: true,
+          secure: false, // Set to true in production with proper SSL
+        }
+      },
+    }
+  }
 };
 
 module.exports = config;
