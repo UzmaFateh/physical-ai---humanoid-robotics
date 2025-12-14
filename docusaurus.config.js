@@ -64,6 +64,30 @@ const config = {
     },
   ],
 
+  // Add configuration for the chatbot
+  customFields: {
+    ragChatbot: {
+      enabled: true,
+      apiEndpoint: process.env.BACKEND_URL || 'http://localhost:8000',
+      apiKey: process.env.RAG_CHATBOT_API_KEY || '',
+    },
+    // ... existing devServer config
+    devServer: {
+      proxy: {
+        '/api': {
+          target: process.env.BACKEND_URL || 'http://localhost:8000',
+          changeOrigin: true,
+          secure: false, // Set to true in production with proper SSL
+        },
+        '/auth': {
+          target: process.env.BACKEND_URL || 'http://localhost:8000',
+          changeOrigin: true,
+          secure: false, // Set to true in production with proper SSL
+        }
+      },
+    }
+  },
+
   themes: [
   ],
 

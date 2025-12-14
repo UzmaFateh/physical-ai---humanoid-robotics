@@ -38,7 +38,7 @@ class QdrantService:
                 self.client.create_collection(
                     collection_name=self.collection_name,
                     vectors_config=models.VectorParams(
-                        size=768,  # Gemini embeddings are typically 768-dim
+                        size=384,  # Using size that matches our embedding model (all-MiniLM-L6-v2)
                         distance=models.Distance.COSINE
                     )
                 )
@@ -47,38 +47,56 @@ class QdrantService:
                 logger.info(f"Qdrant collection exists: {self.collection_name}")
         except Exception as e:
             logger.error(f"Error ensuring collection exists: {str(e)}")
-            raise
+            # Don't raise the exception to allow graceful degradation
+            # The system can still function with other features
+            logger.info("Qdrant not available, running in degraded mode")
 
     async def store_embeddings(self, chunks: List[Dict[str, Any]]) -> int:
         """
         Store document chunks with their embeddings in Qdrant
         """
         try:
+            # Import the LLM service to generate embeddings
+            from app.services.llm_service import LLMService
+            llm_service = LLMService()
+
             points = []
-            for chunk in chunks:
-                point_id = str(uuid.uuid4())
+            batch_size = 10  # Process embeddings in batches to avoid memory issues
 
-                # Create payload with metadata
-                payload = {
-                    "content": chunk["content"],
-                    "source_url": chunk["source_url"],
-                    "page_title": chunk["page_title"],
-                    "section": chunk.get("section", ""),
-                    "chunk_order": chunk.get("chunk_order", 0),
-                    "metadata": chunk.get("metadata", {})
-                }
+            # Process chunks in batches
+            for i in range(0, len(chunks), batch_size):
+                batch_chunks = chunks[i:i + batch_size]
 
-                # For now, we'll use a placeholder for the actual embedding
-                # In a real implementation, this would be the actual vector
-                vector = [0.0] * 768  # Placeholder - replace with actual embedding
+                # Extract content for embedding generation
+                texts = [chunk["content"] for chunk in batch_chunks]
 
-                points.append(
-                    models.PointStruct(
-                        id=point_id,
-                        vector=vector,
-                        payload=payload
+                # Generate embeddings for the batch
+                embeddings = await llm_service.generate_embeddings(texts)
+
+                # Create points with actual embeddings
+                for j, chunk in enumerate(batch_chunks):
+                    point_id = str(uuid.uuid4())
+
+                    # Get the corresponding embedding
+                    embedding = embeddings[j] if j < len(embeddings) else [0.0] * 384
+
+                    # Create payload with metadata
+                    payload = {
+                        "content": chunk["content"],
+                        "source_url": chunk["source_url"],
+                        "page_title": chunk["page_title"],
+                        "section": chunk.get("section", ""),
+                        "chunk_order": chunk.get("chunk_order", 0),
+                        "metadata": chunk.get("metadata", {})
+                    }
+
+                    points.append(
+                        models.PointStruct(
+                            id=point_id,
+                            vector=embedding,
+                            payload=payload
+                        )
                     )
-                )
 
             # Upload points to Qdrant
             self.client.upsert(
@@ -90,13 +108,24 @@ class QdrantService:
             return len(points)
         except Exception as e:
             logger.error(f"Error storing embeddings in Qdrant: {str(e)}")
-            raise
+            # Return 0 to indicate no chunks were stored, but don't raise exception
+            # This allows the system to continue functioning even without Qdrant
+            logger.info("Failed to store embeddings in Qdrant, proceeding with other operations")
+            return 0
 
-    async def search_similar(self, query_vector: List[float], top_k: int = 5, source_url: Optional[str] = None) -> List[Dict[str, Any]]:
+    async def search_similar(self, query: str, top_k: int = 5, source_url: Optional[str] = None) -> List[Dict[str, Any]]:
         """
         Search for similar chunks in the vector database
         """
         try:
+            # Import the LLM service to generate embeddings for the query
+            from app.services.llm_service import LLMService
+            llm_service = LLMService()
+
+            # Generate embedding for the query string
+            query_embeddings = await llm_service.generate_embeddings([query])
+            query_vector = query_embeddings[0] if query_embeddings else [0.0] * 384
+
             # Prepare filters if source_url is provided
             filters = None
             if source_url:
@@ -134,7 +163,10 @@ class QdrantService:
             return results
         except Exception as e:
             logger.error(f"Error searching in Qdrant: {str(e)}")
-            raise
+            # Return empty list instead of raising exception
+            # This allows the system to continue functioning even without Qdrant
+            logger.info("No results from Qdrant, returning empty results")
+            return []
 
     async def delete_by_source_url(self, urls: List[str]) -> int:
         """

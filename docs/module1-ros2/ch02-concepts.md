@@ -2,7 +2,7 @@
 title: 'Chapter 2: Core Concepts - Nodes, Topics, Services, & Actions'
 ---
 
-# Chapter 2: Core Concepts - Nodes, Topics, Services, & Actions
+# Chapter 2: Core Concepts Nodes, Topics, Services, & Actions
 
 Now that you have a high-level understanding of what ROS 2 is, let's break down its fundamental components. These are the building blocks you will use to construct any robotics application.
 

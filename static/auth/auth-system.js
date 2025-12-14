@@ -72,8 +72,9 @@ class AuthSystem {
             <button type="submit">Sign Up</button>
           </form>
 
-          <div class="auth-switch">
-            Already have an account? <a href="#" id="show-signin">Sign In</a>
+          <div class="auth-navigation">
+            <button type="button" class="auth-back-btn" id="back-to-home-signup">← Go Home</button>
+            <span>Already have an account? <a href="#" id="show-signin">Sign In</a></span>
           </div>
         </div>
       </div>
@@ -86,6 +87,12 @@ class AuthSystem {
     document.getElementById('show-signin').addEventListener('click', (e) => {
       e.preventDefault();
       this.showSigninForm();
+    });
+
+    // Add back to home button functionality for signup
+    document.getElementById('back-to-home-signup').addEventListener('click', () => {
+      this.closeModal();
+      window.location.href = '/';
     });
 
     // Add modal close button functionality
@@ -126,8 +133,9 @@ class AuthSystem {
             <button type="submit">Sign In</button>
           </form>
 
-          <div class="auth-switch">
-            Don't have an account? <a href="#" id="show-signup">Sign Up</a>
+          <div class="auth-navigation">
+            <button type="button" class="auth-back-btn" id="back-to-home-signin">← Go Home</button>
+            <span>Don't have an account? <a href="#" id="show-signup">Sign Up</a></span>
           </div>
         </div>
       </div>
@@ -140,6 +148,12 @@ class AuthSystem {
     document.getElementById('show-signup').addEventListener('click', (e) => {
       e.preventDefault();
       this.showSignupForm();
+    });
+
+    // Add back to home button functionality for signin
+    document.getElementById('back-to-home-signin').addEventListener('click', () => {
+      this.closeModal();
+      window.location.href = '/';
     });
 
     // Add modal close button functionality
@@ -430,6 +444,26 @@ button[type="submit"]:hover {
 
 .auth-switch a:hover {
   text-decoration: underline;
+}
+
+.auth-navigation {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.auth-back-btn {
+  padding: 0.5rem 1rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.auth-back-btn:hover {
+  background-color: #e0e0e0;
 }
 
 /* Close button for modal */

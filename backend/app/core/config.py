@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     QDRANT_COLLECTION_NAME: str = "documentation_chunks"
 
     # Gemini
-    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "AIzaSyAvSq9AVdYQzx0uBeVy39f1WXDlgLZZdBU")
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "AIzaSyB98Gx6PN4fF4anmdla73kj8ETvNr16btU")
     GEMINI_MODEL_NAME: str = "gemini-2.5-flash"
 
     # CORS
@@ -51,6 +51,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+        extra = "allow"  # Allow extra environment variables
 
 
 settings = Settings()

@@ -344,8 +344,30 @@ class RAGChatWidget extends HTMLElement {
         }
     }
 
+    async initWidget() {
+        // Create the chat interface
+        this.chatInterface = new ChatInterface('rag-chat-container', {
+            title: 'Documentation Assistant'
+        });
+
+        // Override the chat interface's callAPI method to use actual API
+        // This is the key change to ensure real API calls are made
+        this.chatInterface.callAPI = this.callAPI.bind(this);
+
+        // Initialize text selection
+        this.textSelection = new TextSelectionAPI();
+        this.textSelection.addListener(this.handleTextSelection.bind(this));
+
+        // Create toggle button if widget is closed
+        this.createToggleButton();
+
+        // Initialize session
+        await this.createSession();
+    }
+
     async callAPI(message) {
         try {
+            const selectedText = this.selectedText || window.selectedTextForRAG || message;
             const response = await fetch(`${this.apiEndpoint}/api/v1/rag/query`, {
                 method: 'POST',
                 headers: {
@@ -354,15 +376,19 @@ class RAGChatWidget extends HTMLElement {
                 },
                 body: JSON.stringify({
                     query: message,
-                    selected_text: this.selectedText || message,
+                    selected_text: selectedText,
                     session_id: this.sessionId,
-                    source_url: window.location.href
+                    source_url: window.location.href,
+                    context_window: 3
                 })
             });
 
             if (response.ok) {
                 return await response.json();
             } else {
+                console.error(`API request failed with status ${response.status}`);
+                const errorText = await response.text();
+                console.error('Error details:', errorText);
                 throw new Error(`API request failed with status ${response.status}`);
             }
         } catch (error) {
@@ -372,12 +398,6 @@ class RAGChatWidget extends HTMLElement {
                 sources: []
             };
         }
-    }
-
-    // Override the chat interface's callAPI method
-    async sendMessage(message) {
-        // This will be called from the chat interface
-        return await this.callAPI(message);
     }
 }
 

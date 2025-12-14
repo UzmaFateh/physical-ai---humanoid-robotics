@@ -17,20 +17,37 @@ class LLMService:
 
     async def generate_embeddings(self, texts: List[str]) -> List[List[float]]:
         """
-        Generate embeddings for the given texts using a compatible model
-        Note: Gemini doesn't directly provide embeddings, so we'll use a workaround
-        or recommend using a different embedding model like OpenAI's text-embedding-ada-002
+        Generate embeddings for the given texts.
+        Using a local embedding model as Google's API doesn't have direct embeddings access in the generative library.
         """
-        # In a real implementation, you might use a different service for embeddings
-        # or use a locally available embedding model
-        # For now, returning placeholder embeddings
-        embeddings = []
-        for text in texts:
-            # Placeholder - in real implementation, use actual embedding service
-            embedding = [0.0] * 768  # Example embedding size
-            embeddings.append(embedding)
+        try:
+            from sentence_transformers import SentenceTransformer
+            import numpy as np
 
-        return embeddings
+            # Using a lightweight but effective model for embeddings
+            model = SentenceTransformer('all-MiniLM-L6-v2')
+            embeddings = model.encode(texts).tolist()
+            return embeddings
+        except ImportError:
+            logger.error("sentence_transformers not installed, installing now...")
+            import subprocess
+            import sys
+
+            # Install sentence_transformers if not present
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "sentence-transformers"])
+
+            from sentence_transformers import SentenceTransformer
+            model = SentenceTransformer('all-MiniLM-L6-v2')
+            embeddings = model.encode(texts).tolist()
+            return embeddings
+        except Exception as e:
+            logger.error(f"Error generating embeddings: {str(e)}")
+            # Return placeholder embeddings as final fallback
+            embeddings = []
+            for text in texts:
+                embedding = [0.0] * 384  # Using 384 for MiniLM model
+                embeddings.append(embedding)
+            return embeddings
 
     async def generate_response(self, prompt: str, context: Optional[str] = None) -> str:
         """

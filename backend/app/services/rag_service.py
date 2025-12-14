@@ -20,14 +20,9 @@ class RAGService:
         Process a RAG query with selected text context
         """
         try:
-            # First, search for relevant chunks based on the query
-            # For now, we'll use a simple embedding of the query
-            query_embeddings = await self.llm_service.generate_embeddings([query])
-            query_vector = query_embeddings[0] if query_embeddings else [0.0] * 768
-
-            # Search for relevant chunks
+            # Search for relevant chunks based on the query
             search_results = await self.qdrant_service.search_similar(
-                query_vector=query_vector,
+                query=query,
                 top_k=5,  # Get top 5 relevant chunks
                 source_url=source_url
             )
@@ -36,13 +31,18 @@ class RAGService:
             context_parts = []
 
             # Add selected text as primary context
-            context_parts.append(f"Selected Text: {selected_text}")
+            if selected_text:
+                context_parts.append(f"Selected Text: {selected_text}")
 
             # Add relevant chunks as additional context
             for result in search_results:
                 context_parts.append(f"Related Content: {result['content']}")
 
-            context = "\n\n".join(context_parts)
+            # Only proceed if we have context to work with
+            if not context_parts:
+                context = query  # Use the query as context if no relevant chunks found
+            else:
+                context = "\n\n".join(context_parts)
 
             # Generate response using the LLM
             response = await self.llm_service.generate_response(query, context)
@@ -80,13 +80,9 @@ class RAGService:
         Search for relevant chunks without generating response
         """
         try:
-            # Generate embedding for the query
-            query_embeddings = await self.llm_service.generate_embeddings([query])
-            query_vector = query_embeddings[0] if query_embeddings else [0.0] * 768
-
             # Search for relevant chunks
             search_results = await self.qdrant_service.search_similar(
-                query_vector=query_vector,
+                query=query,
                 top_k=top_k,
                 source_url=source_url
             )
