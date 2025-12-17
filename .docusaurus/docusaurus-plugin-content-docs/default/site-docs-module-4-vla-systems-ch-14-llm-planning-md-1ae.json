@@ -1,0 +1,27 @@
+{
+  "id": "module4-vla-systems/ch14-llm-planning",
+  "title": "Chapter 14: LLM-Based Task Planning and Reasoning",
+  "description": "Introduction to LLM-Based Planning in Robotics",
+  "source": "@site/docs/module4-vla-systems/ch14-llm-planning.md",
+  "sourceDirName": "module4-vla-systems",
+  "slug": "/module4-vla-systems/ch14-llm-planning",
+  "permalink": "/docs/module4-vla-systems/ch14-llm-planning",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module4-vla-systems/ch14-llm-planning.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 13: Vision-Language Integration with AI Models",
+    "permalink": "/docs/module4-vla-systems/ch13-whisper"
+  },
+  "next": {
+    "title": "Chapter 15: Converting LLM Plans to Executable Actions",
+    "permalink": "/docs/module4-vla-systems/ch15-plans-to-actions"
+  }
+}

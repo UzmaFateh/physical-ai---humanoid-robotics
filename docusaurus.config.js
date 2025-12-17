@@ -1,31 +1,32 @@
 // @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// You can also use `@provide` to get types from other files as well.
+// Note: type annotations allow type checking and IDEs autocompletion
+
+const lightCodeTheme = require('prism-react-renderer').themes.github;
+const darkCodeTheme = require('prism-react-renderer').themes.dracula;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Physical AI & Humanoid Robotics',
-  tagline: 'A Textbook',
+  title: 'Physical AI: Humanoid Robotics',
+  tagline: 'A Comprehensive Guide to Building Humanoid Robots with AI',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://your-site.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'physical-ai-humanoid-robotics', // Usually your GitHub org/user name.
+  projectName: 'physical-ai-humanoid-robotics', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
+  // Even if you don't use internalization, you can use this field to set useful
+  // metadata like html lang. For example, if your site is Chinese, you may want
+  // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -37,85 +38,18 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: './sidebars.js',
+          sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/',
         },
-        blog: false,
+        blog: false, // Disable blog since we're not using it
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: require.resolve('./src/css/custom.css'),
         },
       }),
     ],
-  ],
-
-  scripts: [
-    {
-      src: '/rag-chatbot-embed.js',
-      async: true,
-      defer: true,
-    },
-    {
-      src: '/js/auth-navbar.js',
-      async: true,
-      defer: true,
-    },
-  ],
-
-  // Add configuration for the chatbot
-  customFields: {
-    ragChatbot: {
-      enabled: true,
-      apiEndpoint: process.env.BACKEND_URL || 'http://localhost:8000',
-      apiKey: process.env.RAG_CHATBOT_API_KEY || '',
-    },
-    // ... existing devServer config
-    devServer: {
-      proxy: {
-        '/api': {
-          target: process.env.BACKEND_URL || 'http://localhost:8000',
-          changeOrigin: true,
-          secure: false, // Set to true in production with proper SSL
-        },
-        '/auth': {
-          target: process.env.BACKEND_URL || 'http://localhost:8000',
-          changeOrigin: true,
-          secure: false, // Set to true in production with proper SSL
-        }
-      },
-    }
-  },
-
-  themes: [
-  ],
-
-  plugins: [
-    // Add a plugin to configure webpack devServer
-    async function configureDevServer(context, options) {
-      return {
-        name: 'dev-server-config-plugin',
-        configureWebpack(config, isServer) {
-          if (!isServer) {
-            // Only apply this in development mode for client-side builds
-            return {
-              devServer: {
-                proxy: [
-                  {
-                    context: ['/api', '/auth'],
-                    target: process.env.BACKEND_URL || 'http://localhost:8000',
-                    changeOrigin: true,
-                    secure: false,
-                  }
-                ]
-              }
-            };
-          }
-          return {};
-        }
-      };
-    }
   ],
 
   themeConfig:
@@ -124,49 +58,72 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'Physical Ai & Humanoid Robotics ',
+        title: 'Physical AI: Humanoid Robotics',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/book-logo.png',
+          alt: 'Physical AI Logo',
+          src: 'img/logo.svg',
         },
         items: [
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'TextBook',
+            label: 'Documentation',
+          },
+          {
+            href: 'https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics',
+            label: 'GitHub',
+            position: 'right',
           },
         ],
       },
       footer: {
-        style: 'light',
-        copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics. Built with Docusaurus.`,
+        style: 'dark',
+        links: [
+          {
+            title: 'Docs',
+            items: [
+              {
+                label: 'Tutorial',
+                to: '/docs/intro',
+              },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'Stack Overflow',
+                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              },
+              {
+                label: 'Discord',
+                href: 'https://discordapp.com/invite/docusaurus',
+              },
+              {
+                label: 'Twitter',
+                href: 'https://twitter.com/docusaurus',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'GitHub',
+                href: 'https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics',
+              },
+            ],
+          },
+        ],
+        copyright: `Copyright © ${new Date().getFullYear()} Physical AI Humanoid Robotics. Built with Docusaurus.`,
       },
       prism: {
-        theme: require('prism-react-renderer').themes.github,
-        darkTheme: require('prism-react-renderer').themes.dracula,
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
+        additionalLanguages: ['python', 'bash', 'json', 'yaml', 'docker', 'cpp'],
       },
     }),
-
-  // Move the devServer config to customFields
-  customFields: {
-    devServer: {
-      proxy: {
-        '/api': {
-          target: process.env.BACKEND_URL || 'http://localhost:8000',
-          changeOrigin: true,
-          secure: false, // Set to true in production with proper SSL
-        },
-        '/auth': {
-          target: process.env.BACKEND_URL || 'http://localhost:8000',
-          changeOrigin: true,
-          secure: false, // Set to true in production with proper SSL
-        }
-      },
-    }
-  }
 };
 
 module.exports = config;
-
-

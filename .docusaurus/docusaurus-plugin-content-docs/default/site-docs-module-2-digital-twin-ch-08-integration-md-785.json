@@ -1,0 +1,27 @@
+{
+  "id": "module2-digital-twin/ch08-integration",
+  "title": "Chapter 8: Integration and Deployment of Digital Twin Systems",
+  "description": "System Integration Architecture",
+  "source": "@site/docs/module2-digital-twin/ch08-integration.md",
+  "sourceDirName": "module2-digital-twin",
+  "slug": "/module2-digital-twin/ch08-integration",
+  "permalink": "/docs/module2-digital-twin/ch08-integration",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module2-digital-twin/ch08-integration.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 7: Unity Visualization for Robotics",
+    "permalink": "/docs/module2-digital-twin/ch07-unity-viz"
+  },
+  "next": {
+    "title": "Chapter 9: NVIDIA Isaac Sim Fundamentals",
+    "permalink": "/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals"
+  }
+}

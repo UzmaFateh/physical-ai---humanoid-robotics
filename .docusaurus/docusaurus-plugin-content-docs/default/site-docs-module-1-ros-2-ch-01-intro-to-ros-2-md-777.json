@@ -1,0 +1,28 @@
+{
+  "id": "module1-ros2/ch01-intro-to-ros2",
+  "title": "Introduction to ROS 2: The Robotic Nervous System",
+  "description": "Overview",
+  "source": "@site/docs/module1-ros2/ch01-intro-to-ros2.md",
+  "sourceDirName": "module1-ros2",
+  "slug": "/module1-ros2/ch01-intro-to-ros2",
+  "permalink": "/docs/module1-ros2/ch01-intro-to-ros2",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module1-ros2/ch01-intro-to-ros2.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Introduction to ROS 2: The Robotic Nervous System"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Physical AI & Humanoid Robotics Course",
+    "permalink": "/docs/intro"
+  },
+  "next": {
+    "title": "Chapter 2: Advanced ROS 2 Concepts",
+    "permalink": "/docs/module1-ros2/ch02-concepts"
+  }
+}

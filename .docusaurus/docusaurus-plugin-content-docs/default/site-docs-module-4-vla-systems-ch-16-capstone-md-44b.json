@@ -1,0 +1,23 @@
+{
+  "id": "module4-vla-systems/ch16-capstone",
+  "title": "Chapter 16: Capstone - Complete VLA System Integration",
+  "description": "Introduction to the Complete VLA System",
+  "source": "@site/docs/module4-vla-systems/ch16-capstone.md",
+  "sourceDirName": "module4-vla-systems",
+  "slug": "/module4-vla-systems/ch16-capstone",
+  "permalink": "/docs/module4-vla-systems/ch16-capstone",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module4-vla-systems/ch16-capstone.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 15: Converting LLM Plans to Executable Actions",
+    "permalink": "/docs/module4-vla-systems/ch15-plans-to-actions"
+  }
+}

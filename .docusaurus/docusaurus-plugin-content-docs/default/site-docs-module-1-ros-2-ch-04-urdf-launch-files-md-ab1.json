@@ -1,0 +1,27 @@
+{
+  "id": "module1-ros2/ch04-urdf-launch-files",
+  "title": "Chapter 4: URDF and Launch Files for Robot Integration",
+  "description": "Understanding URDF (Unified Robot Description Format)",
+  "source": "@site/docs/module1-ros2/ch04-urdf-launch-files.md",
+  "sourceDirName": "module1-ros2",
+  "slug": "/module1-ros2/ch04-urdf-launch-files",
+  "permalink": "/docs/module1-ros2/ch04-urdf-launch-files",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module1-ros2/ch04-urdf-launch-files.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 3: ROS 2 Packages and Practical Examples",
+    "permalink": "/docs/module1-ros2/ch03-packages"
+  },
+  "next": {
+    "title": "Chapter 5: The Digital Twin - Gazebo & Unity Integration",
+    "permalink": "/docs/module2-digital-twin/ch05-robot-description"
+  }
+}

@@ -1,103 +1,392 @@
 ---
-title: 'Chapter 3: ROS 2 Packages with Python'
+sidebar_position: 3
 ---
 
-# Chapter 3: ROS 2 Packages with Python
+# Chapter 3: ROS 2 Packages and Practical Examples
 
-In the previous chapter, we wrote simple, single-file ROS 2 nodes. While this is great for learning, real-world robotics projects quickly become complex. To manage this complexity, ROS 2 uses a **package** system.
+## Creating a Complete Robot Package
 
-A ROS 2 package is simply a directory with a specific structure and a `package.xml` file that contains metadata about the package. Packages are the fundamental unit for organizing, sharing, and reusing ROS 2 code.
+Let's create a more comprehensive robot package that includes URDF, launch files, and control interfaces. This will serve as the foundation for our robot simulation in later modules.
 
-## Why Use Packages?
+First, let's create a URDF (Unified Robot Description Format) file for a simple robot:
 
--   **Organization**: Packages group related nodes, launch files, and configuration files together.
--   **Dependencies**: They explicitly declare their dependencies on other packages.
--   **Build System Integration**: ROS 2's build tools (`colcon`) know how to find, build, and install packages.
--   **Reusability**: Well-defined packages can be easily shared and used across different projects.
+```xml
+<!-- simple_robot_pkg/urdf/simple_bot.urdf -->
+<?xml version="1.0"?>
+<robot name="simple_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-## Structure of a Python Package
+  <!-- Base Link -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.5 0.3 0.1"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.5 0.3 0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
 
-A minimal Python ROS 2 package has the following structure:
+  <!-- Left Wheel -->
+  <link name="left_wheel">
+    <visual>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
 
+  <!-- Right Wheel -->
+  <link name="right_wheel">
+    <visual>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <!-- Joints -->
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <origin xyz="0.15 0.15 -0.05" rpy="1.57075 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <origin xyz="0.15 -0.15 -0.05" rpy="1.57075 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+</robot>
 ```
-my_python_pkg/
-├── package.xml
-├── setup.py
-├── setup.cfg
-└── my_python_pkg/
-    ├── __init__.py
-    └── my_node.py
+
+## Robot State Publisher
+
+To publish the robot's state, we'll use the robot_state_publisher:
+
+```python
+# simple_robot_pkg/robot_state_publisher_node.py
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import JointState
+from geometry_msgs.msg import TransformStamped
+from tf2_ros import TransformBroadcaster
+import math
+
+class RobotStatePublisher(Node):
+    def __init__(self):
+        super().__init__('robot_state_publisher')
+
+        # Create publisher for joint states
+        self.joint_state_publisher = self.create_publisher(JointState, 'joint_states', 10)
+
+        # Create transform broadcaster
+        self.tf_broadcaster = TransformBroadcaster(self)
+
+        # Timer for publishing
+        self.timer = self.create_timer(0.1, self.publish_joint_states)
+
+        # Initialize joint positions
+        self.joint_names = ['left_wheel_joint', 'right_wheel_joint']
+        self.joint_positions = [0.0, 0.0]
+        self.joint_velocities = [0.0, 0.0]
+        self.joint_efforts = [0.0, 0.0]
+
+    def publish_joint_states(self):
+        # Create joint state message
+        msg = JointState()
+        msg.name = self.joint_names
+        msg.position = self.joint_positions
+        msg.velocity = self.joint_velocities
+        msg.effort = self.joint_efforts
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.header.frame_id = 'base_link'
+
+        self.joint_state_publisher.publish(msg)
+
+        # Update joint positions (for demonstration)
+        self.joint_positions[0] += 0.1
+        self.joint_positions[1] += 0.1
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = RobotStatePublisher()
+    rclpy.spin(node)
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
 ```
 
-Let's break down each file:
+## Twist Controller for Differential Drive
 
--   **`package.xml`**: This is the most important file. It contains metadata about the package, such as its name, version, author, license, and dependencies. The build system uses this file to figure out how to handle the package.
+Let's create a controller that accepts velocity commands:
 
--   **`setup.py`**: This is a standard Python setup script. It tells the build system how to install the package and where to find its executable nodes.
+```python
+# simple_robot_pkg/twist_controller.py
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Twist
+from std_msgs.msg import Float64MultiArray
 
--   **`setup.cfg`**: This file configures the `setuptools` build process, specifying where to find the executable scripts (our ROS 2 nodes).
+class TwistController(Node):
+    def __init__(self):
+        super().__init__('twist_controller')
 
--   **`my_python_pkg/` (the inner directory)**: This is the actual Python package that contains your source code. It must have an `__init__.py` file to be recognized as a Python package. Your node files (e.g., `my_node.py`) live inside this directory.
+        # Subscribe to cmd_vel
+        self.subscription = self.create_subscription(
+            Twist,
+            'cmd_vel',
+            self.cmd_vel_callback,
+            10)
 
-## Creating a Python Package
+        # Publish wheel velocities
+        self.wheel_cmd_publisher = self.create_publisher(
+            Float64MultiArray,
+            'wheel_cmd',
+            10)
 
-ROS 2 provides a command-line tool to quickly create a new package with all the necessary boilerplate.
+        self.wheel_radius = 0.1  # meters
+        self.wheel_separation = 0.3  # meters
+        self.get_logger().info('Twist Controller initialized')
 
-1.  Navigate to the `src` directory of your ROS 2 workspace. A workspace is a directory where you keep your custom packages.
-    ```bash
-    mkdir -p ros2_ws/src
-    cd ros2_ws/src
-    ```
+    def cmd_vel_callback(self, msg):
+        # Convert linear and angular velocity to wheel velocities
+        linear_vel = msg.linear.x
+        angular_vel = msg.angular.z
 
-2.  Run the `ros2 pkg create` command:
-    ```bash
-    ros2 pkg create --build-type ament_python --node-name my_first_node my_first_pkg
-    ```
-    -   `--build-type ament_python`: Specifies that we are creating a Python package.
-    -   `--node-name my_first_node`: Creates a sample executable node with this name.
-    -   `my_first_pkg`: The name of our new package.
+        # Calculate wheel velocities for differential drive
+        left_wheel_vel = (linear_vel - angular_vel * self.wheel_separation / 2.0) / self.wheel_radius
+        right_wheel_vel = (linear_vel + angular_vel * self.wheel_separation / 2.0) / self.wheel_radius
 
-This command will generate a directory named `my_first_pkg` with all the files we discussed above, including a sample "Hello World" style node.
+        # Create and publish wheel command
+        wheel_cmd = Float64MultiArray()
+        wheel_cmd.data = [left_wheel_vel, right_wheel_vel]
 
-## Building and Running a Package
+        self.wheel_cmd_publisher.publish(wheel_cmd)
+        self.get_logger().info(f'Left: {left_wheel_vel:.2f}, Right: {right_wheel_vel:.2f}')
 
-Once you have created your package, you need to build it using `colcon`, the standard ROS 2 build tool.
+def main(args=None):
+    rclpy.init(args=args)
+    controller = TwistController()
+    rclpy.spin(controller)
+    controller.destroy_node()
+    rclpy.shutdown()
 
-1.  Navigate to the root of your workspace (`ros2_ws`).
-2.  Run `colcon build`.
-    ```bash
-    cd ..  # Go up to ros2_ws
-    colcon build
-    ```
-    Colcon will find all the packages in the `src` directory, resolve their dependencies, and build them. It creates `install`, `build`, and `log` directories in your workspace root.
+if __name__ == '__main__':
+    main()
+```
 
-3.  **Source the workspace**: After building, you need to source the workspace's setup file. This tells ROS 2 where to find the executables and resources from your new package.
-    ```bash
-    source install/setup.bash
-    ```
-    **Important**: You must do this in every new terminal where you want to use your custom package.
+## Launch File for Complete Robot System
 
-4.  **Run your node**: Now you can run the node from your package using `ros2 run`.
-    ```bash
-    ros2 run my_first_pkg my_first_node
-    ```
-    This command tells ROS 2 to look for a package named `my_first_pkg` and execute the node named `my_first_node`.
+Now let's create a comprehensive launch file that brings up our complete robot system:
 
-## The `package.xml` File in Detail
+```python
+# simple_robot_pkg/launch/simple_bot.launch.py
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
+from ament_index_python.packages import get_package_share_directory
+import os
 
-This file is crucial. Here's a minimal example:
+def generate_launch_description():
+    # Get the launch directory
+    pkg_dir = get_package_share_directory('simple_robot_pkg')
+    urdf_path = os.path.join(pkg_dir, 'urdf', 'simple_bot.urdf')
+
+    # Declare launch arguments
+    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+
+    return LaunchDescription([
+        # Declare launch arguments
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value='false',
+            description='Use simulation (Gazebo) clock if true'),
+
+        # Robot State Publisher
+        Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            name='robot_state_publisher',
+            output='screen',
+            parameters=[{
+                'use_sim_time': use_sim_time,
+                'robot_description': open(urdf_path).read()
+            }]),
+
+        # Joint State Publisher (for simulation)
+        Node(
+            package='joint_state_publisher',
+            executable='joint_state_publisher',
+            name='joint_state_publisher',
+            parameters=[{
+                'use_sim_time': use_sim_time
+            }]),
+
+        # Twist Controller
+        Node(
+            package='simple_robot_pkg',
+            executable='twist_controller',
+            name='twist_controller',
+            parameters=[{
+                'use_sim_time': use_sim_time
+            }]),
+
+        # Robot State Publisher Node
+        Node(
+            package='simple_robot_pkg',
+            executable='robot_state_publisher_node',
+            name='robot_state_publisher_node',
+            parameters=[{
+                'use_sim_time': use_sim_time
+            }]),
+    ])
+```
+
+## Creating a Simple Navigation Node
+
+Let's also create a basic navigation node that can move the robot to a goal:
+
+```python
+# simple_robot_pkg/simple_navigation.py
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Twist, Point
+from nav_msgs.msg import Odometry
+import math
+
+class SimpleNavigation(Node):
+    def __init__(self):
+        super().__init__('simple_navigation')
+
+        # Publishers and subscribers
+        self.cmd_vel_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.odom_subscriber = self.create_subscription(
+            Odometry,
+            'odom',
+            self.odom_callback,
+            10)
+
+        # Navigation parameters
+        self.current_pose = Point()
+        self.target_pose = Point()
+        self.target_pose.x = 2.0
+        self.target_pose.y = 2.0
+
+        # Timer for navigation
+        self.timer = self.create_timer(0.1, self.navigate_to_goal)
+
+        self.get_logger().info(f'Navigating to goal: ({self.target_pose.x}, {self.target_pose.y})')
+
+    def odom_callback(self, msg):
+        # Update current pose from odometry
+        self.current_pose.x = msg.pose.pose.position.x
+        self.current_pose.y = msg.pose.pose.position.y
+
+    def navigate_to_goal(self):
+        # Calculate distance to goal
+        dx = self.target_pose.x - self.current_pose.x
+        dy = self.target_pose.y - self.current_pose.y
+        distance = math.sqrt(dx*dx + dy*dy)
+
+        # Create twist message
+        twist = Twist()
+
+        if distance > 0.1:  # If not close to goal
+            # Calculate angle to goal
+            angle_to_goal = math.atan2(dy, dx)
+
+            # Get current orientation (simplified)
+            # In a real system, you'd get this from the orientation in the odom message
+            current_angle = 0.0  # Simplified for example
+
+            # Simple proportional controller for rotation
+            angle_error = angle_to_goal - current_angle
+            twist.angular.z = max(-1.0, min(1.0, angle_error * 1.0))
+
+            # Move forward if roughly aligned
+            if abs(angle_error) < 0.2:
+                twist.linear.x = max(0.0, min(0.5, distance * 0.5))
+        else:
+            # Stop when close to goal
+            twist.linear.x = 0.0
+            twist.angular.z = 0.0
+            self.get_logger().info('Reached goal!')
+
+        self.cmd_vel_publisher.publish(twist)
+
+def main(args=None):
+    rclpy.init(args=args)
+    navigator = SimpleNavigation()
+    rclpy.spin(navigator)
+    navigator.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+## Package Configuration
+
+Don't forget to update your package.xml to include dependencies:
 
 ```xml
 <?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>my_first_pkg</name>
-  <version>0.0.0</version>
-  <description>A simple example package.</description>
-  <maintainer email="user@example.com">Your Name</maintainer>
-  <license>Apache License 2.0</license>
+  <name>simple_robot_pkg</name>
+  <version>0.1.0</version>
+  <description>Simple robot package for educational purposes</description>
+  <maintainer email="student@robotics.edu">Student</maintainer>
+  <license>Apache-2.0</license>
 
   <depend>rclpy</depend>
   <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</end>
+  <depend>tf2_ros</depend>
+  <depend>example_interfaces</depend>
+
+  <exec_depend>ros2launch</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
@@ -110,100 +399,60 @@ This file is crucial. Here's a minimal example:
 </package>
 ```
 
--   `<name>`: The official name of the package.
--   `<version>`, `<description>`, `<maintainer>`, `<license>`: Standard metadata.
--   `<depend>`: This is where you declare your package's dependencies. If your Python code imports `rclpy` and `std_msgs`, you must list them here. This is how the build system ensures all necessary libraries are available.
--   `<export>`: This section tells the build system what kind of package this is.
+And update your setup.py:
 
----
+```python
+from setuptools import setup
+import os
+from glob import glob
 
-### Lab 3.1: Creating and Running a Custom Package
+package_name = 'simple_robot_pkg'
 
-**Problem Statement**: Create a ROS 2 package that contains the simple publisher and subscriber nodes from the previous chapter's code examples.
+setup(
+    name=package_name,
+    version='0.1.0',
+    packages=[package_name],
+    data_files=[
+        ('share/ament_index/resource_index/packages',
+            ['resource/' + package_name]),
+        ('share/' + package_name, ['package.xml']),
+        # Include all launch files
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
+        # Include URDF files
+        (os.path.join('share', package_name, 'urdf'), glob('urdf/*.urdf')),
+    ],
+    install_requires=['setuptools'],
+    zip_safe=True,
+    maintainer='Student',
+    maintainer_email='student@robotics.edu',
+    description='Simple robot package for educational purposes',
+    license='Apache-2.0',
+    tests_require=['pytest'],
+    entry_points={
+        'console_scripts': [
+            'simple_publisher = simple_robot_pkg.simple_publisher:main',
+            'simple_subscriber = simple_robot_pkg.simple_subscriber:main',
+            'robot_state_publisher_node = simple_robot_pkg.robot_state_publisher_node:main',
+            'twist_controller = simple_robot_pkg.twist_controller:main',
+            'simple_navigation = simple_robot_pkg.simple_navigation:main',
+        ],
+    },
+)
+```
 
-**Expected Outcome**: You will have a custom package that you can build with `colcon`, and you can use `ros2 run` to start your publisher and subscriber nodes.
+## Building and Running
 
-**Steps**:
+To build and run your complete robot system:
 
-1.  **Create a workspace**:
-    ```bash
-    mkdir -p ros2_ws/src
-    cd ros2_ws/src
-    ```
+```bash
+cd ~/ros2_ws
+colcon build --packages-select simple_robot_pkg
+source install/setup.bash
 
-2.  **Create a new package**: Let's call it `chatter_pkg`.
-    ```bash
-    ros2 pkg create --build-type ament_python chatter_pkg
-    ```
-    This will create the directory `chatter_pkg` with the basic file structure.
+# Run the complete robot system
+ros2 launch simple_robot_pkg simple_bot.launch.py
+```
 
-3.  **Create the node files**:
-    -   Inside the `chatter_pkg/chatter_pkg` directory, create two new files: `publisher_node.py` and `subscriber_node.py`.
-    -   Copy the code from `publisher.py` (the example from `src/code-examples/module1`) into `publisher_node.py`.
-    -   Copy the code from `subscriber.py` into `subscriber_node.py`.
+## Next Steps
 
-4.  **Edit `package.xml`**:
-    -   Open `chatter_pkg/package.xml`.
-    -   Add dependencies for `rclpy` and `std_msgs` since our nodes use them.
-      ```xml
-      <depend>rclpy</depend>
-      <depend>std_msgs</depend>
-      ```
-
-5.  **Edit `setup.py`**:
-    -   Open `chatter_pkg/setup.py`.
-    -   We need to tell the build system about our two new executables. Modify the `entry_points` section to look like this:
-      ```python
-      'console_scripts': [
-          'my_publisher = chatter_pkg.publisher_node:main',
-          'my_subscriber = chatter_pkg.subscriber_node:main',
-      ],
-      ```
-      This tells `colcon` that when the package is installed, it should create two executable scripts: `my_publisher` (which runs the `main` function from `publisher_node.py`) and `my_subscriber`.
-
-6.  **Build the package**:
-    -   Navigate to the root of your workspace (`ros2_ws`).
-    -   Run `colcon build`.
-      ```bash
-      cd ../..  # Go back to ros2_ws
-      colcon build
-      ```
-
-7.  **Run your nodes**:
-    -   Open a new terminal. Source the main ROS 2 setup file AND your workspace's setup file.
-      ```bash
-      source /opt/ros/humble/setup.bash
-      source install/setup.bash
-      ```
-    -   Run your publisher node.
-      ```bash
-      ros2 run chatter_pkg my_publisher
-      ```
-    -   Open a second terminal and do the same sourcing.
-      ```bash
-      source /opt/ros/humble/setup.bash
-      source install/setup.bash
-      ```
-    -   Run your subscriber node.
-      ```bash
-      ros2 run chatter_pkg my_subscriber
-      ```
-      You should see the same publisher/subscriber communication as before, but now you are running the nodes from your very own ROS 2 package!
-
-**Conclusion**: You have successfully organized standalone nodes into a proper ROS 2 package, making your code more modular, reusable, and easier to build and distribute. This is a critical skill for any real-world robotics project.
-
----
-
-## References
-
-[1] Robot Operating System (ROS) Website: https://www.ros.org/
-[2] ROS 2 Documentation: https://docs.ros.org/en/humble/index.html
-[3] Data Distribution Service (DDS) Standard: https://www.omg.org/dds/
-[4] Gazebo Documentation: http://gazebosim.org/
-[5] Unity Robotics Hub: https://github.com/Unity-Technologies/Unity-Robotics-Hub
-[6] NVIDIA Isaac Sim Documentation: https://docs.omniverse.nvidia.com/app_isaacsim/app_isaacsim/overview.html
-[7] NVIDIA Isaac ROS Documentation: https://nvidia-isaac-ros.github.io/
-[8] Nav2 Documentation: https://navigation.ros.org/
-[9] OpenAI Whisper API Documentation: https://platform.openai.com/docs/guides/speech-to-text
-[10] OpenAI API Documentation: https://platform.openai.com/docs/api-reference
-[11] IEEE Editorial Style Manual: https://www.ieee.org/content/dam/ieee-org/ieee/web/org/pubs/ieee_style_manual.pdf
+Now that we have a comprehensive ROS 2 robot package, we'll move on to Module 2 where we'll integrate this with simulation environments like Gazebo and Unity. The URDF we created here will be used to represent our robot in the digital twin.

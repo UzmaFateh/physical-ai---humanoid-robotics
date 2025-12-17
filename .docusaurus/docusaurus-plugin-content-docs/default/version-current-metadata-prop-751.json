@@ -1,0 +1,277 @@
+{
+  "pluginId": "default",
+  "version": "current",
+  "label": "Next",
+  "banner": null,
+  "badge": false,
+  "noIndex": false,
+  "className": "docs-version-current",
+  "isLast": true,
+  "docsSidebars": {
+    "tutorialSidebar": [
+      {
+        "type": "category",
+        "label": "Introduction",
+        "items": [
+          {
+            "type": "link",
+            "label": "Physical AI & Humanoid Robotics Course",
+            "href": "/docs/intro",
+            "docId": "intro",
+            "unlisted": false
+          }
+        ],
+        "collapsed": false,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Module 1: The Robotic Nervous System (ROS 2)",
+        "items": [
+          {
+            "type": "link",
+            "label": "Introduction to ROS 2: The Robotic Nervous System",
+            "href": "/docs/module1-ros2/ch01-intro-to-ros2",
+            "docId": "module1-ros2/ch01-intro-to-ros2",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 2: Advanced ROS 2 Concepts",
+            "href": "/docs/module1-ros2/ch02-concepts",
+            "docId": "module1-ros2/ch02-concepts",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 3: ROS 2 Packages and Practical Examples",
+            "href": "/docs/module1-ros2/ch03-packages",
+            "docId": "module1-ros2/ch03-packages",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 4: URDF and Launch Files for Robot Integration",
+            "href": "/docs/module1-ros2/ch04-urdf-launch-files",
+            "docId": "module1-ros2/ch04-urdf-launch-files",
+            "unlisted": false
+          }
+        ],
+        "collapsed": false,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Module 2: The Digital Twin (Gazebo & Unity)",
+        "items": [
+          {
+            "type": "link",
+            "label": "Chapter 5: The Digital Twin - Gazebo & Unity Integration",
+            "href": "/docs/module2-digital-twin/ch05-robot-description",
+            "docId": "module2-digital-twin/ch05-robot-description",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 6: Advanced Gazebo Physics and Simulation",
+            "href": "/docs/module2-digital-twin/ch06-gazebo-physics",
+            "docId": "module2-digital-twin/ch06-gazebo-physics",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 7: Unity Visualization for Robotics",
+            "href": "/docs/module2-digital-twin/ch07-unity-viz",
+            "docId": "module2-digital-twin/ch07-unity-viz",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 8: Integration and Deployment of Digital Twin Systems",
+            "href": "/docs/module2-digital-twin/ch08-integration",
+            "docId": "module2-digital-twin/ch08-integration",
+            "unlisted": false
+          }
+        ],
+        "collapsed": false,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Module 3: The AI-Robot Brain (NVIDIA Isaac)",
+        "items": [
+          {
+            "type": "link",
+            "label": "Chapter 9: NVIDIA Isaac Sim Fundamentals",
+            "href": "/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+            "docId": "module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 10: Isaac ROS - Perception and Navigation",
+            "href": "/docs/module3-nvidia-isaac/ch10-isaac-ros",
+            "docId": "module3-nvidia-isaac/ch10-isaac-ros",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 11: Isaac Navigation - Path Planning and Control",
+            "href": "/docs/module3-nvidia-isaac/ch11-navigation",
+            "docId": "module3-nvidia-isaac/ch11-navigation",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 12: Reinforcement Learning and Sim-to-Real Transfer",
+            "href": "/docs/module3-nvidia-isaac/ch12-rl-sim-to-real",
+            "docId": "module3-nvidia-isaac/ch12-rl-sim-to-real",
+            "unlisted": false
+          }
+        ],
+        "collapsed": false,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Module 4: Vision-Language-Action (VLA)",
+        "items": [
+          {
+            "type": "link",
+            "label": "Chapter 13: Vision-Language Integration with AI Models",
+            "href": "/docs/module4-vla-systems/ch13-whisper",
+            "docId": "module4-vla-systems/ch13-whisper",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 14: LLM-Based Task Planning and Reasoning",
+            "href": "/docs/module4-vla-systems/ch14-llm-planning",
+            "docId": "module4-vla-systems/ch14-llm-planning",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 15: Converting LLM Plans to Executable Actions",
+            "href": "/docs/module4-vla-systems/ch15-plans-to-actions",
+            "docId": "module4-vla-systems/ch15-plans-to-actions",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Chapter 16: Capstone - Complete VLA System Integration",
+            "href": "/docs/module4-vla-systems/ch16-capstone",
+            "docId": "module4-vla-systems/ch16-capstone",
+            "unlisted": false
+          }
+        ],
+        "collapsed": false,
+        "collapsible": true
+      }
+    ]
+  },
+  "docs": {
+    "intro": {
+      "id": "intro",
+      "title": "Physical AI & Humanoid Robotics Course",
+      "description": "Why Physical AI Matters",
+      "sidebar": "tutorialSidebar"
+    },
+    "module1-ros2/ch01-intro-to-ros2": {
+      "id": "module1-ros2/ch01-intro-to-ros2",
+      "title": "Introduction to ROS 2: The Robotic Nervous System",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module1-ros2/ch02-concepts": {
+      "id": "module1-ros2/ch02-concepts",
+      "title": "Chapter 2: Advanced ROS 2 Concepts",
+      "description": "Services",
+      "sidebar": "tutorialSidebar"
+    },
+    "module1-ros2/ch03-packages": {
+      "id": "module1-ros2/ch03-packages",
+      "title": "Chapter 3: ROS 2 Packages and Practical Examples",
+      "description": "Creating a Complete Robot Package",
+      "sidebar": "tutorialSidebar"
+    },
+    "module1-ros2/ch04-urdf-launch-files": {
+      "id": "module1-ros2/ch04-urdf-launch-files",
+      "title": "Chapter 4: URDF and Launch Files for Robot Integration",
+      "description": "Understanding URDF (Unified Robot Description Format)",
+      "sidebar": "tutorialSidebar"
+    },
+    "module2-digital-twin/ch05-robot-description": {
+      "id": "module2-digital-twin/ch05-robot-description",
+      "title": "Chapter 5: The Digital Twin - Gazebo & Unity Integration",
+      "description": "Introduction to Digital Twins in Robotics",
+      "sidebar": "tutorialSidebar"
+    },
+    "module2-digital-twin/ch06-gazebo-physics": {
+      "id": "module2-digital-twin/ch06-gazebo-physics",
+      "title": "Chapter 6: Advanced Gazebo Physics and Simulation",
+      "description": "Understanding Gazebo Physics Engine",
+      "sidebar": "tutorialSidebar"
+    },
+    "module2-digital-twin/ch07-unity-viz": {
+      "id": "module2-digital-twin/ch07-unity-viz",
+      "title": "Chapter 7: Unity Visualization for Robotics",
+      "description": "Introduction to Unity for Robotics Visualization",
+      "sidebar": "tutorialSidebar"
+    },
+    "module2-digital-twin/ch08-integration": {
+      "id": "module2-digital-twin/ch08-integration",
+      "title": "Chapter 8: Integration and Deployment of Digital Twin Systems",
+      "description": "System Integration Architecture",
+      "sidebar": "tutorialSidebar"
+    },
+    "module3-nvidia-isaac/ch09-isaac-sim-fundamentals": {
+      "id": "module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+      "title": "Chapter 9: NVIDIA Isaac Sim Fundamentals",
+      "description": "Introduction to NVIDIA Isaac",
+      "sidebar": "tutorialSidebar"
+    },
+    "module3-nvidia-isaac/ch10-isaac-ros": {
+      "id": "module3-nvidia-isaac/ch10-isaac-ros",
+      "title": "Chapter 10: Isaac ROS - Perception and Navigation",
+      "description": "Introduction to Isaac ROS",
+      "sidebar": "tutorialSidebar"
+    },
+    "module3-nvidia-isaac/ch11-navigation": {
+      "id": "module3-nvidia-isaac/ch11-navigation",
+      "title": "Chapter 11: Isaac Navigation - Path Planning and Control",
+      "description": "Introduction to Isaac Navigation",
+      "sidebar": "tutorialSidebar"
+    },
+    "module3-nvidia-isaac/ch12-rl-sim-to-real": {
+      "id": "module3-nvidia-isaac/ch12-rl-sim-to-real",
+      "title": "Chapter 12: Reinforcement Learning and Sim-to-Real Transfer",
+      "description": "Introduction to Isaac Lab and Reinforcement Learning",
+      "sidebar": "tutorialSidebar"
+    },
+    "module4-vla-systems/ch13-whisper": {
+      "id": "module4-vla-systems/ch13-whisper",
+      "title": "Chapter 13: Vision-Language Integration with AI Models",
+      "description": "Introduction to Vision-Language-Action (VLA) Systems",
+      "sidebar": "tutorialSidebar"
+    },
+    "module4-vla-systems/ch14-llm-planning": {
+      "id": "module4-vla-systems/ch14-llm-planning",
+      "title": "Chapter 14: LLM-Based Task Planning and Reasoning",
+      "description": "Introduction to LLM-Based Planning in Robotics",
+      "sidebar": "tutorialSidebar"
+    },
+    "module4-vla-systems/ch15-plans-to-actions": {
+      "id": "module4-vla-systems/ch15-plans-to-actions",
+      "title": "Chapter 15: Converting LLM Plans to Executable Actions",
+      "description": "Introduction to Plan Execution",
+      "sidebar": "tutorialSidebar"
+    },
+    "module4-vla-systems/ch16-capstone": {
+      "id": "module4-vla-systems/ch16-capstone",
+      "title": "Chapter 16: Capstone - Complete VLA System Integration",
+      "description": "Introduction to the Complete VLA System",
+      "sidebar": "tutorialSidebar"
+    }
+  }
+}

@@ -1,55 +1,61 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Physical AI & Humanoid Robotics Course Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Comprehensive Educational Coverage
+Course content must comprehensively cover all four core modules: ROS 2, Gazebo/Unity Digital Twin, NVIDIA Isaac, and Vision-Language-Action (VLA) systems. Each module should include theoretical foundations, practical implementation, and hands-on exercises.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Progressive Learning Structure
+Content must follow a progressive learning approach, building from fundamental concepts to advanced implementations. Each module should have clear prerequisites and learning objectives that build upon previous knowledge.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Practical Implementation Focus (NON-NEGOTIABLE)
+All theoretical concepts must be accompanied by practical code examples, simulations, and real-world applications. Students must be able to implement, test, and validate each concept covered in the course.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Integration and Interoperability
+The course must emphasize how different robotics frameworks and technologies integrate. Students should understand how ROS 2 communicates with simulation environments, how NVIDIA Isaac connects with perception systems, and how VLA models interact with robotic platforms.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Documentation and Accessibility
+All code examples, configurations, and procedures must be thoroughly documented with clear explanations, diagrams, and step-by-step instructions. The course must be accessible to students with varying technical backgrounds.
 
-### [PRINCIPLE_6_NAME]
+### VI. Open Source and Reproducibility
+All course materials, code examples, and configurations must be open source and reproducible. Students should be able to replicate all examples using publicly available tools and resources.
 
+## Course Standards
 
-[PRINCIPLE__DESCRIPTION]
+### Technology Stack Requirements
+- ROS 2 (Humble Hawksbill or later) for robotics middleware
+- Gazebo and Unity for simulation environments
+- NVIDIA Isaac Sim and ROS for perception and control
+- Python and C++ for implementation examples
+- Docusaurus for documentation and course delivery
+- GitHub Pages for deployment and accessibility
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### Quality Standards
+- All code examples must be tested and verified
+- Documentation must include setup instructions, dependencies, and troubleshooting guides
+- Course content must be updated to reflect current best practices and version compatibility
+- All examples must work in both simulation and real hardware contexts where applicable
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Development Workflow
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### Content Creation Process
+- All course content follows a spec-driven approach with clear learning objectives
+- Code examples are developed and tested before documentation
+- Content is reviewed by domain experts before publication
+- Student feedback is incorporated through structured review cycles
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Review and Quality Assurance
+- All new content must include working code examples
+- Documentation must be verified by independent reviewers
+- Course materials must be tested across different operating systems
+- Performance benchmarks and expected outcomes must be clearly defined
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Course governance follows the Spec-Driven Development methodology where all changes must:
+- Maintain alignment with core educational objectives
+- Preserve backward compatibility for existing students
+- Include comprehensive testing of all new features
+- Document any breaking changes with migration paths
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-15 | **Last Amended**: 2025-12-15

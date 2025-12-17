@@ -1,0 +1,27 @@
+{
+  "id": "module3-nvidia-isaac/ch11-navigation",
+  "title": "Chapter 11: Isaac Navigation - Path Planning and Control",
+  "description": "Introduction to Isaac Navigation",
+  "source": "@site/docs/module3-nvidia-isaac/ch11-navigation.md",
+  "sourceDirName": "module3-nvidia-isaac",
+  "slug": "/module3-nvidia-isaac/ch11-navigation",
+  "permalink": "/docs/module3-nvidia-isaac/ch11-navigation",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module3-nvidia-isaac/ch11-navigation.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 10: Isaac ROS - Perception and Navigation",
+    "permalink": "/docs/module3-nvidia-isaac/ch10-isaac-ros"
+  },
+  "next": {
+    "title": "Chapter 12: Reinforcement Learning and Sim-to-Real Transfer",
+    "permalink": "/docs/module3-nvidia-isaac/ch12-rl-sim-to-real"
+  }
+}

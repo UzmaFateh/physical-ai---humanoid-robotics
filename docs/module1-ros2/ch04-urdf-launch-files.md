@@ -1,263 +1,780 @@
 ---
-title: 'Chapter 4: URDF & Launch Files'
+sidebar_position: 4
 ---
 
-# Chapter 4: URDF & Launch Files
+# Chapter 4: URDF and Launch Files for Robot Integration
 
-In this chapter, we'll cover two essential tools for managing complex robot systems in ROS 2: URDF for describing the robot's physical structure, and Launch files for starting and configuring multiple nodes at once.
+## Understanding URDF (Unified Robot Description Format)
 
-## Describing a Robot with URDF
+URDF is XML-based format used to describe robots in ROS. It contains information about robot's physical properties like joints, links, inertial properties, visual and collision properties. URDF is essential for simulation, visualization, and kinematic analysis.
 
-**URDF** stands for **Unified Robot Description Format**. It's an XML-based format used in ROS to describe all the physical elements of a robot. A URDF file defines:
+### URDF Structure
 
--   **Links**: The rigid parts of the robot (e.g., the base, an arm link, a gripper finger).
--   **Joints**: The connections between links, which define how they can move relative to each other (e.g., revolute, prismatic, fixed).
--   **Visuals**: The 3D mesh or shape of each link (what the robot looks like).
--   **Collisions**: The geometry of each link used for collision detection.
--   **Inertials**: The mass and inertia properties of each link for physics simulation.
+A URDF file typically contains:
+- **Links**: Rigid bodies with visual and collision properties
+- **Joints**: Connections between links with kinematic properties
+- **Materials**: Color and appearance definitions
+- **Gazebo plugins**: Simulation-specific configurations
 
-By creating a URDF file, you are building a data-driven model of your robot that many different ROS 2 tools can use.
-
-### The `robot_state_publisher`
-
-A URDF file by itself is just a description. To make it useful, we use a special ROS 2 node called `robot_state_publisher`. This node does the following:
-
-1.  Reads your URDF file.
-2.  Subscribes to a topic (usually `/joint_states`) that provides the current state (e.g., angle) of all the robot's joints.
-3.  Based on the URDF and the current joint states, it calculates the 3D pose of every link on the robot.
-4.  It then publishes these poses as **transformations** using ROS 2's transformation system, `tf2`.
-
-Other nodes in your system (like a visualization tool or a perception node) can then subscribe to `tf2` to get the real-time pose of any part of the robot.
-
-### Example URDF Snippet
-
-Here's a very simple example of a two-link arm:
+Let's expand our simple robot URDF to include more realistic properties:
 
 ```xml
+<!-- simple_robot_pkg/urdf/simple_bot_complete.urdf -->
 <?xml version="1.0"?>
-<robot name="simple_arm">
+<robot name="simple_bot_complete" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Materials -->
+  <material name="blue">
+    <color rgba="0 0 1 0.8"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="red">
+    <color rgba="1 0 0 0.8"/>
+  </material>
+
+  <!-- Base Footprint (virtual link for ground reference) -->
+  <link name="base_footprint">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+  </joint>
 
   <!-- Base Link -->
   <link name="base_link">
     <visual>
       <geometry>
-        <cylinder length="0.6" radius="0.2"/>
+        <box size="0.5 0.3 0.15"/>
       </geometry>
+      <material name="blue"/>
     </visual>
+    <collision>
+      <geometry>
+        <box size="0.5 0.3 0.15"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0"/>
+      <inertia ixx="0.04375" ixy="0.0" ixz="0.0" iyy="0.077083" iyz="0.0" izz="0.10625"/>
+    </inertial>
   </link>
 
-  <!-- Arm Link -->
-  <link name="arm_link">
+  <!-- Left Wheel -->
+  <link name="left_wheel">
     <visual>
       <geometry>
-        <box size="0.8 0.1 0.1"/>
+        <cylinder radius="0.1" length="0.05"/>
       </geometry>
+      <material name="black"/>
     </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
   </link>
 
-  <!-- Joint connecting base to arm -->
-  <joint name="base_to_arm_joint" type="revolute">
+  <!-- Right Wheel -->
+  <link name="right_wheel">
+    <visual>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <!-- Left Caster Wheel -->
+  <link name="left_caster_wheel">
+    <visual>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="0.00005" ixy="0.0" ixz="0.0" iyy="0.00005" iyz="0.0" izz="0.00005"/>
+    </inertial>
+  </link>
+
+  <!-- Right Caster Wheel -->
+  <link name="right_caster_wheel">
+    <visual>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="0.00005" ixy="0.0" ixz="0.0" iyy="0.00005" iyz="0.0" izz="0.00005"/>
+    </inertial>
+  </link>
+
+  <!-- Joints -->
+  <joint name="left_wheel_joint" type="continuous">
     <parent link="base_link"/>
-    <child link="arm_link"/>
-    <origin xyz="0 0 0.3"/>
-    <axis xyz="0 1 0"/>
-    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <child link="left_wheel"/>
+    <origin xyz="0.15 0.15 -0.075" rpy="1.57075 0 0"/>
+    <axis xyz="0 0 1"/>
+    <dynamics damping="0.5"/>
   </joint>
+
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <origin xyz="0.15 -0.15 -0.075" rpy="1.57075 0 0"/>
+    <axis xyz="0 0 1"/>
+    <dynamics damping="0.5"/>
+  </joint>
+
+  <joint name="left_caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_caster_wheel"/>
+    <origin xyz="-0.2 -0.1 -0.075" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="right_caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_caster_wheel"/>
+    <origin xyz="-0.2 0.1 -0.075" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Gazebo-specific configurations -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+  </gazebo>
+
+  <gazebo reference="left_wheel">
+    <material>Gazebo/Black</material>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+
+  <gazebo reference="right_wheel">
+    <material>Gazebo/Black</material>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+
+  <gazebo reference="left_caster_wheel">
+    <material>Gazebo/Red</material>
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+
+  <gazebo reference="right_caster_wheel">
+    <material>Gazebo/Red</material>
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+
+  <!-- Transmission for differential drive -->
+  <transmission name="left_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_wheel_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="right_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_wheel_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
 </robot>
 ```
 
--   We define two `<link>`s: `base_link` and `arm_link`.
--   We define one `<joint>` of type `revolute` (a rotating joint).
--   The joint connects the `parent` link (`base_link`) to the `child` link (`arm_link`).
--   The `<origin>` tag specifies where the joint is located relative to the parent link.
--   The `<axis>` tag specifies the axis of rotation.
+## Advanced Launch File with Gazebo Integration
 
-## Managing Complexity with Launch Files
-
-As your robot system grows, you'll find yourself opening many terminals to run many different nodes (`ros2 run ...`). This quickly becomes tedious and error-prone.
-
-**Launch files** are the solution. A ROS 2 launch file is a Python script that allows you to start and configure a whole system of nodes with a single command.
-
-With a launch file, you can:
-
--   Start multiple nodes at once.
--   Automatically start required helper nodes (like `robot_state_publisher`).
--   Pass parameters and remappings to your nodes.
--   Restart nodes automatically if they crash.
--   Group nodes into namespaces for multi-robot systems.
-
-### A Simple Launch File
-
-ROS 2 launch files are written in Python. They look like this:
+Now let's create a comprehensive launch file that integrates our robot with Gazebo simulation:
 
 ```python
-# simple_robot.launch.py
-
+# simple_robot_pkg/launch/simple_bot_gazebo.launch.py
 import os
-from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, ExecuteProcess
+from launch.conditions import IfCondition
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
-    
-    # Path to your URDF file
-    urdf_file_path = os.path.join(
-        get_package_share_directory('my_robot_pkg'),
-        'urdf',
-        'my_robot.urdf.xacro'
+    # Launch configuration variables
+    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
+    use_rviz = LaunchConfiguration('use_rviz', default='true')
+    world = LaunchConfiguration('world', default='empty.sdf')
+
+    # Package names
+    pkg_gazebo_ros = FindPackageShare('gazebo_ros').find('gazebo_ros')
+    pkg_simple_robot = FindPackageShare('simple_robot_pkg').find('simple_robot_pkg')
+
+    # Paths
+    urdf_path = os.path.join(pkg_simple_robot, 'urdf', 'simple_bot_complete.urdf')
+    rviz_config_path = os.path.join(pkg_simple_robot, 'rviz', 'simple_bot.rviz')
+
+    return LaunchDescription([
+        # Declare launch arguments
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value='true',
+            description='Use simulation (Gazebo) clock if true'),
+
+        DeclareLaunchArgument(
+            'use_rviz',
+            default_value='true',
+            description='Whether to start RViz'),
+
+        DeclareLaunchArgument(
+            'world',
+            default_value='empty.sdf',
+            description='Choose one of the world files from `/gazebo_ros/worlds`'),
+
+        # Start Gazebo server and client
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')
+            ),
+            launch_arguments={'world': world}.items(),
+        ),
+
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')
+            ),
+        ),
+
+        # Robot State Publisher
+        Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            name='robot_state_publisher',
+            output='screen',
+            parameters=[{
+                'use_sim_time': use_sim_time,
+                'robot_description': open(urdf_path).read()
+            }]),
+
+        # Spawn robot in Gazebo
+        Node(
+            package='gazebo_ros',
+            executable='spawn_entity.py',
+            arguments=[
+                '-entity', 'simple_bot',
+                '-file', urdf_path,
+                '-x', '0', '-y', '0', '-z', '0.2'
+            ],
+            output='screen'),
+
+        # Joint State Publisher (GUI for manual joint control)
+        Node(
+            package='joint_state_publisher_gui',
+            executable='joint_state_publisher_gui',
+            name='joint_state_publisher_gui',
+            parameters=[{'use_sim_time': use_sim_time}]),
+
+        # RViz
+        Node(
+            condition=IfCondition(use_rviz),
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            arguments=['-d', rviz_config_path],
+            parameters=[{'use_sim_time': use_sim_time}],
+            output='screen'),
+
+        # Twist mux for velocity commands
+        Node(
+            package='twist_mux',
+            executable='twist_mux',
+            parameters=[os.path.join(pkg_simple_robot, 'config', 'twist_mux.yaml')],
+            remappings=[('/cmd_vel_out', '/simple_bot/cmd_vel')],
+            output='screen'),
+
+        # Robot localization (odometry)
+        Node(
+            package='robot_localization',
+            executable='ekf_node',
+            name='ekf_filter_node',
+            output='screen',
+            parameters=[os.path.join(pkg_simple_robot, 'config', 'ekf.yaml')]),
+    ])
+```
+
+## RViz Configuration
+
+Create an RViz configuration file to visualize our robot:
+
+```yaml
+# simple_robot_pkg/rviz/simple_bot.rviz
+Panels:
+  - Class: rviz_common/Displays
+    Help Height: 78
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Status1
+        - /RobotModel1
+        - /TF1
+        - /LaserScan1
+        - /PointCloud21
+      Splitter Ratio: 0.5
+    Tree Height: 549
+  - Class: rviz_common/Selection
+    Name: Selection
+  - Class: rviz_common/Tool Properties
+    Expanded:
+      - /2D Goal Pose1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz_common/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz_default_plugins/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Alpha: 1
+      Class: rviz_default_plugins/RobotModel
+      Collision Enabled: false
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /robot_description
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_caster_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_caster_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: RobotModel
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+      Tree:
+        {}
+      Update Interval: 0
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: base_link
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+      Hide Inactive Objects: true
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+      Line color: 128; 128; 0
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 10
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.5
+      Target Frame: <Fixed Frame>
+      Value: Orbit (rviz)
+      Yaw: 0.5
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 846
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd000000040000000000000156000002b4fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d000002b4000000c900fffffffb0000002000730065006c0065006300740069006f006e0020006200750066006600650072005f0069006d006100670065000000003d000000c90000000000000000fb0000000a0049006d00610067006501000001d40000010c0000000000000000fb0000000a0056006900650077007301000003e0000000a4000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004420000003efc0100000002fb0000000800540069006d00650100000000000004420000000000000000fb0000000800540069006d006501000000000000045000000000000000000000023f000002b400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Width: 1200
+  X: 72
+  Y: 60
+```
+
+## Twist Multiplexer Configuration
+
+Create a configuration file for the twist multiplexer:
+
+```yaml
+# simple_robot_pkg/config/twist_mux.yaml
+twist_mux:
+  ros__parameters:
+    topics:
+      - name: navigation
+        topic: cmd_vel
+        timeout: 0.1
+        priority: 10
+      - name: joystick
+        topic: cmd_vel_joy
+        timeout: 0.5
+        priority: 5
+      - name: keyboard
+        topic: cmd_vel_key
+        timeout: 0.5
+        priority: 3
+```
+
+## Extended Robot Controller with Gazebo Integration
+
+Let's create a more sophisticated controller that works with Gazebo:
+
+```python
+# simple_robot_pkg/gazebo_controller.py
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Twist, Wrench
+from sensor_msgs.msg import JointState
+from std_msgs.msg import Float64MultiArray
+from std_srvs.srv import Empty
+import math
+
+class GazeboController(Node):
+    def __init__(self):
+        super().__init__('gazebo_controller')
+
+        # Publishers for Gazebo
+        self.left_wheel_pub = self.create_publisher(Float64MultiArray, '/simple_bot/left_wheel_controller/commands', 10)
+        self.right_wheel_pub = self.create_publisher(Float64MultiArray, '/simple_bot/right_wheel_controller/commands', 10)
+
+        # Subscriber for velocity commands
+        self.cmd_vel_sub = self.create_subscription(
+            Twist,
+            'cmd_vel',
+            self.cmd_vel_callback,
+            10)
+
+        # Timer for control loop
+        self.control_timer = self.create_timer(0.02, self.control_loop)  # 50 Hz
+
+        # Robot parameters
+        self.wheel_radius = 0.1  # meters
+        self.wheel_separation = 0.3  # meters
+        self.max_wheel_velocity = 5.0  # rad/s
+
+        # Control variables
+        self.desired_linear_vel = 0.0
+        self.desired_angular_vel = 0.0
+
+        self.get_logger().info('Gazebo Controller initialized')
+
+    def cmd_vel_callback(self, msg):
+        self.desired_linear_vel = msg.linear.x
+        self.desired_angular_vel = msg.angular.z
+
+    def control_loop(self):
+        # Convert linear and angular velocity to wheel velocities
+        linear_vel = self.desired_linear_vel
+        angular_vel = self.desired_angular_vel
+
+        # Calculate wheel velocities for differential drive
+        left_wheel_vel = (linear_vel - angular_vel * self.wheel_separation / 2.0) / self.wheel_radius
+        right_wheel_vel = (linear_vel + angular_vel * self.wheel_separation / 2.0) / self.wheel_radius
+
+        # Limit velocities
+        left_wheel_vel = max(-self.max_wheel_velocity, min(self.max_wheel_velocity, left_wheel_vel))
+        right_wheel_vel = max(-self.max_wheel_velocity, min(self.max_wheel_velocity, right_wheel_vel))
+
+        # Create and publish wheel commands
+        left_cmd = Float64MultiArray()
+        left_cmd.data = [left_wheel_vel]
+        self.left_wheel_pub.publish(left_cmd)
+
+        right_cmd = Float64MultiArray()
+        right_cmd.data = [right_wheel_vel]
+        self.right_wheel_pub.publish(right_cmd)
+
+def main(args=None):
+    rclpy.init(args=args)
+    controller = GazeboController()
+    rclpy.spin(controller)
+    controller.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+## Launch File for Complete System
+
+Finally, let's create a complete launch file that includes all components:
+
+```python
+# simple_robot_pkg/launch/simple_bot_complete.launch.py
+import os
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, RegisterEventHandler
+from launch.event_handlers import OnProcessExit
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
+
+def generate_launch_description():
+    # Launch configuration variables
+    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
+    use_rviz = LaunchConfiguration('use_rviz', default='true')
+    world = LaunchConfiguration('world', default='empty.sdf')
+
+    # Package names
+    pkg_gazebo_ros = FindPackageShare('gazebo_ros').find('gazebo_ros')
+    pkg_simple_robot = FindPackageShare('simple_robot_pkg').find('simple_robot_pkg')
+    pkg_ros_gz_sim = FindPackageShare('ros_gz_sim').find('ros_gz_sim')
+
+    # Paths
+    urdf_path = os.path.join(pkg_simple_robot, 'urdf', 'simple_bot_complete.urdf')
+    rviz_config_path = os.path.join(pkg_simple_robot, 'rviz', 'simple_bot.rviz')
+
+    # Launch description
+    ld = LaunchDescription()
+
+    # Declare launch arguments
+    ld.add_action(DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='true',
+        description='Use simulation (Gazebo) clock if true'))
+
+    ld.add_action(DeclareLaunchArgument(
+        'use_rviz',
+        default_value='true',
+        description='Whether to start RViz'))
+
+    ld.add_action(DeclareLaunchArgument(
+        'world',
+        default_value='empty.sdf',
+        description='Choose one of the world files from `/gazebo_ros/worlds`'))
+
+    # Start Gazebo
+    gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')
+        ),
+        launch_arguments={'world': world}.items(),
     )
 
-    # Robot State Publisher Node
-    robot_state_publisher_node = Node(
+    gazebo_client = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')
+        ),
+    )
+
+    # Robot State Publisher
+    robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         name='robot_state_publisher',
         output='screen',
-        parameters=[{'robot_description': open(urdf_file_path).read()}]
-    )
+        parameters=[{
+            'use_sim_time': use_sim_time,
+            'robot_description': open(urdf_path).read()
+        }])
 
-    # Your custom node
-    my_custom_node = Node(
-        package='my_robot_pkg',
-        executable='my_robot_driver',
-        name='my_robot_driver'
-    )
+    # Spawn robot in Gazebo
+    spawn_entity = Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=[
+            '-entity', 'simple_bot',
+            '-file', urdf_path,
+            '-x', '0', '-y', '0', '-z', '0.2'
+        ],
+        output='screen')
 
-    # Create the launch description and populate
-    ld = LaunchDescription()
+    # Joint State Publisher
+    joint_state_publisher = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher',
+        parameters=[{'use_sim_time': use_sim_time}])
 
-    # Add the nodes to the launch description
-    ld.add_action(robot_state_publisher_node)
-    ld.add_action(my_custom_node)
+    # Gazebo Controller
+    gazebo_controller = Node(
+        package='simple_robot_pkg',
+        executable='gazebo_controller',
+        name='gazebo_controller',
+        parameters=[{'use_sim_time': use_sim_time}],
+        output='screen')
+
+    # RViz
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', rviz_config_path],
+        parameters=[{'use_sim_time': use_sim_time}],
+        output='screen')
+
+    # Add all actions to the launch description
+    ld.add_action(gazebo)
+    ld.add_action(gazebo_client)
+    ld.add_action(robot_state_publisher)
+    ld.add_action(joint_state_publisher)
+    ld.add_action(spawn_entity)
+    ld.add_action(gazebo_controller)
+
+    # Conditionally add RViz
+    ld.add_action(rviz)
 
     return ld
 ```
 
--   The `generate_launch_description()` function is the main entry point.
--   We create `Node` objects for each node we want to run.
--   For `robot_state_publisher`, we pass the contents of our URDF file as a parameter named `robot_description`.
--   All `Node` objects are added to a `LaunchDescription` object, which is then returned.
+## Running the Complete System
 
-### Running a Launch File
-
-To run this launch file (assuming it's in a package named `my_robot_pkg` and installed in a directory named `launch`), you would use the `ros2 launch` command:
+To run the complete system with Gazebo:
 
 ```bash
-ros2 launch my_robot_pkg simple_robot.launch.py
+cd ~/ros2_ws
+colcon build --packages-select simple_robot_pkg
+source install/setup.bash
+
+# Run the complete simulation
+ros2 launch simple_robot_pkg simple_bot_complete.launch.py
 ```
 
-This single command will start both the `robot_state_publisher` and your custom driver node, correctly configured and connected.
+In another terminal, you can send velocity commands:
 
----
+```bash
+# Send velocity commands
+ros2 topic pub /cmd_vel geometry_msgs/Twist '{linear: {x: 0.5}, angular: {z: 0.2}}'
+```
 
-### Lab 4.1: Creating a URDF and Launch File
+## Next Steps
 
-**Problem Statement**: Create a simple URDF for a two-wheeled robot and a launch file to start the `robot_state_publisher` for it.
-
-**Expected Outcome**: You will have a package containing a URDF file and a launch file. When you run the launch file, the `robot_state_publisher` will start, load your URDF, and wait for joint state information. You can verify this using visualization tools like RViz2 (which we will cover in the next module).
-
-**Steps**:
-
-1.  **Create a package**:
-    ```bash
-    cd ros2_ws/src
-    ros2 pkg create --build-type ament_python --license Apache-2.0 simple_robot_pkg
-    ```
-
-2.  **Create URDF file**:
-    -   Inside `simple_robot_pkg`, create a directory called `urdf`.
-    -   Inside `urdf`, create a file named `simple_bot.urdf`.
-    -   Add the following content to `simple_bot.urdf`:
-      ```xml
-      <robot name="simple_bot">
-        <link name="base_link">
-          <visual>
-            <geometry><box size="0.6 0.4 0.2"/></geometry>
-          </visual>
-        </link>
-        <link name="right_wheel_link">
-          <visual>
-            <geometry><cylinder radius="0.1" length="0.05"/></geometry>
-          </visual>
-        </link>
-        <joint name="base_to_right_wheel" type="continuous">
-          <parent link="base_link"/>
-          <child link="right_wheel_link"/>
-          <origin xyz="0 -0.25 0" rpy="1.5707 0 0"/>
-          <axis xyz="0 0 1"/>
-        </joint>
-      </robot>
-      ```
-
-3.  **Create Launch file**:
-    -   Inside `simple_robot_pkg`, create a directory called `launch`.
-    -   Inside `launch`, create a file named `display.launch.py`.
-    -   Add the following content:
-      ```python
-      import os
-      from ament_index_python.packages import get_package_share_directory
-      from launch import LaunchDescription
-      from launch_ros.actions import Node
-
-      def generate_launch_description():
-          urdf_path = os.path.join(
-              get_package_share_directory('simple_robot_pkg'),
-              'urdf', 'simple_bot.urdf')
-          
-          return LaunchDescription([
-              Node(
-                  package='robot_state_publisher',
-                  executable='robot_state_publisher',
-                  name='robot_state_publisher',
-                  output='screen',
-                  parameters=[{'robot_description': open(urdf_path).read()}])
-          ])
-      ```
-
-4.  **Install launch and urdf files**:
-    -   Edit your `setup.py` to tell the build system about your new `launch` and `urdf` directories.
-      ```python
-      # setup.py
-      from setuptools import setup
-      import os
-      from glob import glob
-
-      package_name = 'simple_robot_pkg'
-
-      setup(
-          # ... other setup args
-          data_files=[
-              ('share/ament_index/resource_index/packages',
-                  ['resource/' + package_name]),
-              ('share/' + package_name, ['package.xml']),
-              # Include all launch files
-              (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
-              # Include all urdf files
-              (os.path.join('share', package_name, 'urdf'), glob('urdf/*.urdf')),
-          ],
-      )
-      ```
-
-5.  **Build and Run**:
-    -   Build your workspace: `cd ~/ros2_ws && colcon build`
-    -   Source the workspace: `source ~/ros2_ws/install/setup.bash`
-    -   Run the launch file: `ros2 launch simple_robot_pkg display.launch.py`
-
-**Conclusion**: If the launch command runs without errors, you have successfully created a URDF model and a launch file to publish its structure to the ROS 2 network. This is the first step towards visualizing and simulating your robot.
-
----
-
-## References
-
-[1] Robot Operating System (ROS) Website: https://www.ros.org/
-[2] ROS 2 Documentation: https://docs.ros.org/en/humble/index.html
-[3] Data Distribution Service (DDS) Standard: https://www.omg.org/dds/
-[4] Gazebo Documentation: http://gazebosim.org/
-[5] Unity Robotics Hub: https://github.com/Unity-Technologies/Unity-Robotics-Hub
-[6] NVIDIA Isaac Sim Documentation: https://docs.omniverse.nvidia.com/app_isaacsim/app_isaacsim/overview.html
-[7] NVIDIA Isaac ROS Documentation: https://nvidia-isaac-ros.github.io/
-[8] Nav2 Documentation: https://navigation.ros.org/
-[9] OpenAI Whisper API Documentation: https://platform.openai.com/docs/guides/speech-to-text
-[10] OpenAI API Documentation: https://platform.openai.com/docs/api-reference
-[11] IEEE Editorial Style Manual: https://www.ieee.org/content/dam/ieee-org/ieee/web/org/pubs/ieee_style_manual.pdf
+This chapter has covered the integration of ROS 2 with simulation environments. In the next module, we'll dive deeper into the Digital Twin concept, exploring how to create more sophisticated simulations with Gazebo and Unity, and how to implement physics-based modeling and visualization of robotic systems.

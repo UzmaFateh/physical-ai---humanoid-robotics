@@ -1,0 +1,27 @@
+{
+  "id": "module4-vla-systems/ch13-whisper",
+  "title": "Chapter 13: Vision-Language Integration with AI Models",
+  "description": "Introduction to Vision-Language-Action (VLA) Systems",
+  "source": "@site/docs/module4-vla-systems/ch13-whisper.md",
+  "sourceDirName": "module4-vla-systems",
+  "slug": "/module4-vla-systems/ch13-whisper",
+  "permalink": "/docs/module4-vla-systems/ch13-whisper",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module4-vla-systems/ch13-whisper.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 12: Reinforcement Learning and Sim-to-Real Transfer",
+    "permalink": "/docs/module3-nvidia-isaac/ch12-rl-sim-to-real"
+  },
+  "next": {
+    "title": "Chapter 14: LLM-Based Task Planning and Reasoning",
+    "permalink": "/docs/module4-vla-systems/ch14-llm-planning"
+  }
+}

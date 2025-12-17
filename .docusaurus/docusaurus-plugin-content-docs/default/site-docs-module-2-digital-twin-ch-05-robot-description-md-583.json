@@ -1,0 +1,27 @@
+{
+  "id": "module2-digital-twin/ch05-robot-description",
+  "title": "Chapter 5: The Digital Twin - Gazebo & Unity Integration",
+  "description": "Introduction to Digital Twins in Robotics",
+  "source": "@site/docs/module2-digital-twin/ch05-robot-description.md",
+  "sourceDirName": "module2-digital-twin",
+  "slug": "/module2-digital-twin/ch05-robot-description",
+  "permalink": "/docs/module2-digital-twin/ch05-robot-description",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module2-digital-twin/ch05-robot-description.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 4: URDF and Launch Files for Robot Integration",
+    "permalink": "/docs/module1-ros2/ch04-urdf-launch-files"
+  },
+  "next": {
+    "title": "Chapter 6: Advanced Gazebo Physics and Simulation",
+    "permalink": "/docs/module2-digital-twin/ch06-gazebo-physics"
+  }
+}

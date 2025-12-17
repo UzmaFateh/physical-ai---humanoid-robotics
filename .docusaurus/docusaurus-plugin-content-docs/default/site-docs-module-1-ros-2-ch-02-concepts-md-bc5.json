@@ -1,0 +1,27 @@
+{
+  "id": "module1-ros2/ch02-concepts",
+  "title": "Chapter 2: Advanced ROS 2 Concepts",
+  "description": "Services",
+  "source": "@site/docs/module1-ros2/ch02-concepts.md",
+  "sourceDirName": "module1-ros2",
+  "slug": "/module1-ros2/ch02-concepts",
+  "permalink": "/docs/module1-ros2/ch02-concepts",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module1-ros2/ch02-concepts.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Introduction to ROS 2: The Robotic Nervous System",
+    "permalink": "/docs/module1-ros2/ch01-intro-to-ros2"
+  },
+  "next": {
+    "title": "Chapter 3: ROS 2 Packages and Practical Examples",
+    "permalink": "/docs/module1-ros2/ch03-packages"
+  }
+}

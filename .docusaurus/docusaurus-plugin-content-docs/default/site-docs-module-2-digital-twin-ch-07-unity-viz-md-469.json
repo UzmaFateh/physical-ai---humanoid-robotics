@@ -1,0 +1,27 @@
+{
+  "id": "module2-digital-twin/ch07-unity-viz",
+  "title": "Chapter 7: Unity Visualization for Robotics",
+  "description": "Introduction to Unity for Robotics Visualization",
+  "source": "@site/docs/module2-digital-twin/ch07-unity-viz.md",
+  "sourceDirName": "module2-digital-twin",
+  "slug": "/module2-digital-twin/ch07-unity-viz",
+  "permalink": "/docs/module2-digital-twin/ch07-unity-viz",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module2-digital-twin/ch07-unity-viz.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 6: Advanced Gazebo Physics and Simulation",
+    "permalink": "/docs/module2-digital-twin/ch06-gazebo-physics"
+  },
+  "next": {
+    "title": "Chapter 8: Integration and Deployment of Digital Twin Systems",
+    "permalink": "/docs/module2-digital-twin/ch08-integration"
+  }
+}

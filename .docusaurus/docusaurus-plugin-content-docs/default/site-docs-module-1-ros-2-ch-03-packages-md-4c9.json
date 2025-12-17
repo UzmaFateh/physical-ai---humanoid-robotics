@@ -1,0 +1,27 @@
+{
+  "id": "module1-ros2/ch03-packages",
+  "title": "Chapter 3: ROS 2 Packages and Practical Examples",
+  "description": "Creating a Complete Robot Package",
+  "source": "@site/docs/module1-ros2/ch03-packages.md",
+  "sourceDirName": "module1-ros2",
+  "slug": "/module1-ros2/ch03-packages",
+  "permalink": "/docs/module1-ros2/ch03-packages",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module1-ros2/ch03-packages.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 2: Advanced ROS 2 Concepts",
+    "permalink": "/docs/module1-ros2/ch02-concepts"
+  },
+  "next": {
+    "title": "Chapter 4: URDF and Launch Files for Robot Integration",
+    "permalink": "/docs/module1-ros2/ch04-urdf-launch-files"
+  }
+}

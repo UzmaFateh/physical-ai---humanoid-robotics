@@ -1,0 +1,605 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "loadedVersions": [
+        {
+          "versionName": "current",
+          "label": "Next",
+          "banner": null,
+          "badge": false,
+          "noIndex": false,
+          "className": "docs-version-current",
+          "path": "/docs",
+          "tagsPath": "/docs/tags",
+          "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs",
+          "editUrlLocalized": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/i18n/en/docusaurus-plugin-content-docs/current",
+          "isLast": true,
+          "routePriority": -1,
+          "sidebarFilePath": "C:\\specify-folder\\physical-ai-humanoid-robotics\\sidebars.js",
+          "contentPath": "C:\\specify-folder\\physical-ai-humanoid-robotics\\docs",
+          "contentPathLocalized": "C:\\specify-folder\\physical-ai-humanoid-robotics\\i18n\\en\\docusaurus-plugin-content-docs\\current",
+          "docs": [
+            {
+              "id": "intro",
+              "title": "Physical AI & Humanoid Robotics Course",
+              "description": "Why Physical AI Matters",
+              "source": "@site/docs/intro.md",
+              "sourceDirName": ".",
+              "slug": "/intro",
+              "permalink": "/docs/intro",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/intro.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "next": {
+                "title": "Introduction to ROS 2: The Robotic Nervous System",
+                "permalink": "/docs/module1-ros2/ch01-intro-to-ros2"
+              }
+            },
+            {
+              "id": "module1-ros2/ch01-intro-to-ros2",
+              "title": "Introduction to ROS 2: The Robotic Nervous System",
+              "description": "Overview",
+              "source": "@site/docs/module1-ros2/ch01-intro-to-ros2.md",
+              "sourceDirName": "module1-ros2",
+              "slug": "/module1-ros2/ch01-intro-to-ros2",
+              "permalink": "/docs/module1-ros2/ch01-intro-to-ros2",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module1-ros2/ch01-intro-to-ros2.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1,
+                "title": "Introduction to ROS 2: The Robotic Nervous System"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Physical AI & Humanoid Robotics Course",
+                "permalink": "/docs/intro"
+              },
+              "next": {
+                "title": "Chapter 2: Advanced ROS 2 Concepts",
+                "permalink": "/docs/module1-ros2/ch02-concepts"
+              }
+            },
+            {
+              "id": "module1-ros2/ch02-concepts",
+              "title": "Chapter 2: Advanced ROS 2 Concepts",
+              "description": "Services",
+              "source": "@site/docs/module1-ros2/ch02-concepts.md",
+              "sourceDirName": "module1-ros2",
+              "slug": "/module1-ros2/ch02-concepts",
+              "permalink": "/docs/module1-ros2/ch02-concepts",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module1-ros2/ch02-concepts.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Introduction to ROS 2: The Robotic Nervous System",
+                "permalink": "/docs/module1-ros2/ch01-intro-to-ros2"
+              },
+              "next": {
+                "title": "Chapter 3: ROS 2 Packages and Practical Examples",
+                "permalink": "/docs/module1-ros2/ch03-packages"
+              }
+            },
+            {
+              "id": "module1-ros2/ch03-packages",
+              "title": "Chapter 3: ROS 2 Packages and Practical Examples",
+              "description": "Creating a Complete Robot Package",
+              "source": "@site/docs/module1-ros2/ch03-packages.md",
+              "sourceDirName": "module1-ros2",
+              "slug": "/module1-ros2/ch03-packages",
+              "permalink": "/docs/module1-ros2/ch03-packages",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module1-ros2/ch03-packages.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 2: Advanced ROS 2 Concepts",
+                "permalink": "/docs/module1-ros2/ch02-concepts"
+              },
+              "next": {
+                "title": "Chapter 4: URDF and Launch Files for Robot Integration",
+                "permalink": "/docs/module1-ros2/ch04-urdf-launch-files"
+              }
+            },
+            {
+              "id": "module1-ros2/ch04-urdf-launch-files",
+              "title": "Chapter 4: URDF and Launch Files for Robot Integration",
+              "description": "Understanding URDF (Unified Robot Description Format)",
+              "source": "@site/docs/module1-ros2/ch04-urdf-launch-files.md",
+              "sourceDirName": "module1-ros2",
+              "slug": "/module1-ros2/ch04-urdf-launch-files",
+              "permalink": "/docs/module1-ros2/ch04-urdf-launch-files",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module1-ros2/ch04-urdf-launch-files.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 3: ROS 2 Packages and Practical Examples",
+                "permalink": "/docs/module1-ros2/ch03-packages"
+              },
+              "next": {
+                "title": "Chapter 5: The Digital Twin - Gazebo & Unity Integration",
+                "permalink": "/docs/module2-digital-twin/ch05-robot-description"
+              }
+            },
+            {
+              "id": "module2-digital-twin/ch05-robot-description",
+              "title": "Chapter 5: The Digital Twin - Gazebo & Unity Integration",
+              "description": "Introduction to Digital Twins in Robotics",
+              "source": "@site/docs/module2-digital-twin/ch05-robot-description.md",
+              "sourceDirName": "module2-digital-twin",
+              "slug": "/module2-digital-twin/ch05-robot-description",
+              "permalink": "/docs/module2-digital-twin/ch05-robot-description",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module2-digital-twin/ch05-robot-description.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 4: URDF and Launch Files for Robot Integration",
+                "permalink": "/docs/module1-ros2/ch04-urdf-launch-files"
+              },
+              "next": {
+                "title": "Chapter 6: Advanced Gazebo Physics and Simulation",
+                "permalink": "/docs/module2-digital-twin/ch06-gazebo-physics"
+              }
+            },
+            {
+              "id": "module2-digital-twin/ch06-gazebo-physics",
+              "title": "Chapter 6: Advanced Gazebo Physics and Simulation",
+              "description": "Understanding Gazebo Physics Engine",
+              "source": "@site/docs/module2-digital-twin/ch06-gazebo-physics.md",
+              "sourceDirName": "module2-digital-twin",
+              "slug": "/module2-digital-twin/ch06-gazebo-physics",
+              "permalink": "/docs/module2-digital-twin/ch06-gazebo-physics",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module2-digital-twin/ch06-gazebo-physics.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 5: The Digital Twin - Gazebo & Unity Integration",
+                "permalink": "/docs/module2-digital-twin/ch05-robot-description"
+              },
+              "next": {
+                "title": "Chapter 7: Unity Visualization for Robotics",
+                "permalink": "/docs/module2-digital-twin/ch07-unity-viz"
+              }
+            },
+            {
+              "id": "module2-digital-twin/ch07-unity-viz",
+              "title": "Chapter 7: Unity Visualization for Robotics",
+              "description": "Introduction to Unity for Robotics Visualization",
+              "source": "@site/docs/module2-digital-twin/ch07-unity-viz.md",
+              "sourceDirName": "module2-digital-twin",
+              "slug": "/module2-digital-twin/ch07-unity-viz",
+              "permalink": "/docs/module2-digital-twin/ch07-unity-viz",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module2-digital-twin/ch07-unity-viz.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 6: Advanced Gazebo Physics and Simulation",
+                "permalink": "/docs/module2-digital-twin/ch06-gazebo-physics"
+              },
+              "next": {
+                "title": "Chapter 8: Integration and Deployment of Digital Twin Systems",
+                "permalink": "/docs/module2-digital-twin/ch08-integration"
+              }
+            },
+            {
+              "id": "module2-digital-twin/ch08-integration",
+              "title": "Chapter 8: Integration and Deployment of Digital Twin Systems",
+              "description": "System Integration Architecture",
+              "source": "@site/docs/module2-digital-twin/ch08-integration.md",
+              "sourceDirName": "module2-digital-twin",
+              "slug": "/module2-digital-twin/ch08-integration",
+              "permalink": "/docs/module2-digital-twin/ch08-integration",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module2-digital-twin/ch08-integration.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 7: Unity Visualization for Robotics",
+                "permalink": "/docs/module2-digital-twin/ch07-unity-viz"
+              },
+              "next": {
+                "title": "Chapter 9: NVIDIA Isaac Sim Fundamentals",
+                "permalink": "/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals"
+              }
+            },
+            {
+              "id": "module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+              "title": "Chapter 9: NVIDIA Isaac Sim Fundamentals",
+              "description": "Introduction to NVIDIA Isaac",
+              "source": "@site/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals.md",
+              "sourceDirName": "module3-nvidia-isaac",
+              "slug": "/module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+              "permalink": "/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 8: Integration and Deployment of Digital Twin Systems",
+                "permalink": "/docs/module2-digital-twin/ch08-integration"
+              },
+              "next": {
+                "title": "Chapter 10: Isaac ROS - Perception and Navigation",
+                "permalink": "/docs/module3-nvidia-isaac/ch10-isaac-ros"
+              }
+            },
+            {
+              "id": "module3-nvidia-isaac/ch10-isaac-ros",
+              "title": "Chapter 10: Isaac ROS - Perception and Navigation",
+              "description": "Introduction to Isaac ROS",
+              "source": "@site/docs/module3-nvidia-isaac/ch10-isaac-ros.md",
+              "sourceDirName": "module3-nvidia-isaac",
+              "slug": "/module3-nvidia-isaac/ch10-isaac-ros",
+              "permalink": "/docs/module3-nvidia-isaac/ch10-isaac-ros",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module3-nvidia-isaac/ch10-isaac-ros.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 9: NVIDIA Isaac Sim Fundamentals",
+                "permalink": "/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals"
+              },
+              "next": {
+                "title": "Chapter 11: Isaac Navigation - Path Planning and Control",
+                "permalink": "/docs/module3-nvidia-isaac/ch11-navigation"
+              }
+            },
+            {
+              "id": "module3-nvidia-isaac/ch11-navigation",
+              "title": "Chapter 11: Isaac Navigation - Path Planning and Control",
+              "description": "Introduction to Isaac Navigation",
+              "source": "@site/docs/module3-nvidia-isaac/ch11-navigation.md",
+              "sourceDirName": "module3-nvidia-isaac",
+              "slug": "/module3-nvidia-isaac/ch11-navigation",
+              "permalink": "/docs/module3-nvidia-isaac/ch11-navigation",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module3-nvidia-isaac/ch11-navigation.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 10: Isaac ROS - Perception and Navigation",
+                "permalink": "/docs/module3-nvidia-isaac/ch10-isaac-ros"
+              },
+              "next": {
+                "title": "Chapter 12: Reinforcement Learning and Sim-to-Real Transfer",
+                "permalink": "/docs/module3-nvidia-isaac/ch12-rl-sim-to-real"
+              }
+            },
+            {
+              "id": "module3-nvidia-isaac/ch12-rl-sim-to-real",
+              "title": "Chapter 12: Reinforcement Learning and Sim-to-Real Transfer",
+              "description": "Introduction to Isaac Lab and Reinforcement Learning",
+              "source": "@site/docs/module3-nvidia-isaac/ch12-rl-sim-to-real.md",
+              "sourceDirName": "module3-nvidia-isaac",
+              "slug": "/module3-nvidia-isaac/ch12-rl-sim-to-real",
+              "permalink": "/docs/module3-nvidia-isaac/ch12-rl-sim-to-real",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module3-nvidia-isaac/ch12-rl-sim-to-real.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 11: Isaac Navigation - Path Planning and Control",
+                "permalink": "/docs/module3-nvidia-isaac/ch11-navigation"
+              },
+              "next": {
+                "title": "Chapter 13: Vision-Language Integration with AI Models",
+                "permalink": "/docs/module4-vla-systems/ch13-whisper"
+              }
+            },
+            {
+              "id": "module4-vla-systems/ch13-whisper",
+              "title": "Chapter 13: Vision-Language Integration with AI Models",
+              "description": "Introduction to Vision-Language-Action (VLA) Systems",
+              "source": "@site/docs/module4-vla-systems/ch13-whisper.md",
+              "sourceDirName": "module4-vla-systems",
+              "slug": "/module4-vla-systems/ch13-whisper",
+              "permalink": "/docs/module4-vla-systems/ch13-whisper",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module4-vla-systems/ch13-whisper.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 12: Reinforcement Learning and Sim-to-Real Transfer",
+                "permalink": "/docs/module3-nvidia-isaac/ch12-rl-sim-to-real"
+              },
+              "next": {
+                "title": "Chapter 14: LLM-Based Task Planning and Reasoning",
+                "permalink": "/docs/module4-vla-systems/ch14-llm-planning"
+              }
+            },
+            {
+              "id": "module4-vla-systems/ch14-llm-planning",
+              "title": "Chapter 14: LLM-Based Task Planning and Reasoning",
+              "description": "Introduction to LLM-Based Planning in Robotics",
+              "source": "@site/docs/module4-vla-systems/ch14-llm-planning.md",
+              "sourceDirName": "module4-vla-systems",
+              "slug": "/module4-vla-systems/ch14-llm-planning",
+              "permalink": "/docs/module4-vla-systems/ch14-llm-planning",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module4-vla-systems/ch14-llm-planning.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 13: Vision-Language Integration with AI Models",
+                "permalink": "/docs/module4-vla-systems/ch13-whisper"
+              },
+              "next": {
+                "title": "Chapter 15: Converting LLM Plans to Executable Actions",
+                "permalink": "/docs/module4-vla-systems/ch15-plans-to-actions"
+              }
+            },
+            {
+              "id": "module4-vla-systems/ch15-plans-to-actions",
+              "title": "Chapter 15: Converting LLM Plans to Executable Actions",
+              "description": "Introduction to Plan Execution",
+              "source": "@site/docs/module4-vla-systems/ch15-plans-to-actions.md",
+              "sourceDirName": "module4-vla-systems",
+              "slug": "/module4-vla-systems/ch15-plans-to-actions",
+              "permalink": "/docs/module4-vla-systems/ch15-plans-to-actions",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module4-vla-systems/ch15-plans-to-actions.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 14: LLM-Based Task Planning and Reasoning",
+                "permalink": "/docs/module4-vla-systems/ch14-llm-planning"
+              },
+              "next": {
+                "title": "Chapter 16: Capstone - Complete VLA System Integration",
+                "permalink": "/docs/module4-vla-systems/ch16-capstone"
+              }
+            },
+            {
+              "id": "module4-vla-systems/ch16-capstone",
+              "title": "Chapter 16: Capstone - Complete VLA System Integration",
+              "description": "Introduction to the Complete VLA System",
+              "source": "@site/docs/module4-vla-systems/ch16-capstone.md",
+              "sourceDirName": "module4-vla-systems",
+              "slug": "/module4-vla-systems/ch16-capstone",
+              "permalink": "/docs/module4-vla-systems/ch16-capstone",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module4-vla-systems/ch16-capstone.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Chapter 15: Converting LLM Plans to Executable Actions",
+                "permalink": "/docs/module4-vla-systems/ch15-plans-to-actions"
+              }
+            }
+          ],
+          "drafts": [],
+          "sidebars": {
+            "tutorialSidebar": [
+              {
+                "type": "category",
+                "label": "Introduction",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "intro"
+                  }
+                ],
+                "collapsed": false,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Module 1: The Robotic Nervous System (ROS 2)",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "module1-ros2/ch01-intro-to-ros2"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module1-ros2/ch02-concepts"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module1-ros2/ch03-packages"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module1-ros2/ch04-urdf-launch-files"
+                  }
+                ],
+                "collapsed": false,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Module 2: The Digital Twin (Gazebo & Unity)",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "module2-digital-twin/ch05-robot-description"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module2-digital-twin/ch06-gazebo-physics"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module2-digital-twin/ch07-unity-viz"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module2-digital-twin/ch08-integration"
+                  }
+                ],
+                "collapsed": false,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Module 3: The AI-Robot Brain (NVIDIA Isaac)",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "module3-nvidia-isaac/ch09-isaac-sim-fundamentals"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module3-nvidia-isaac/ch10-isaac-ros"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module3-nvidia-isaac/ch11-navigation"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module3-nvidia-isaac/ch12-rl-sim-to-real"
+                  }
+                ],
+                "collapsed": false,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Module 4: Vision-Language-Action (VLA)",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "module4-vla-systems/ch13-whisper"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module4-vla-systems/ch14-llm-planning"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module4-vla-systems/ch15-plans-to-actions"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "module4-vla-systems/ch16-capstone"
+                  }
+                ],
+                "collapsed": false,
+                "collapsible": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "docusaurus-plugin-content-pages": {
+    "default": [
+      {
+        "type": "jsx",
+        "permalink": "/",
+        "source": "@site/src/pages/index.js"
+      }
+    ]
+  },
+  "docusaurus-plugin-debug": {},
+  "docusaurus-theme-classic": {},
+  "docusaurus-bootstrap-plugin": {},
+  "docusaurus-mdx-fallback-plugin": {}
+}

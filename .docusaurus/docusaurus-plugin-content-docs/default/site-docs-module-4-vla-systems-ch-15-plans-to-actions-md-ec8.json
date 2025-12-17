@@ -1,0 +1,27 @@
+{
+  "id": "module4-vla-systems/ch15-plans-to-actions",
+  "title": "Chapter 15: Converting LLM Plans to Executable Actions",
+  "description": "Introduction to Plan Execution",
+  "source": "@site/docs/module4-vla-systems/ch15-plans-to-actions.md",
+  "sourceDirName": "module4-vla-systems",
+  "slug": "/module4-vla-systems/ch15-plans-to-actions",
+  "permalink": "/docs/module4-vla-systems/ch15-plans-to-actions",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module4-vla-systems/ch15-plans-to-actions.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 14: LLM-Based Task Planning and Reasoning",
+    "permalink": "/docs/module4-vla-systems/ch14-llm-planning"
+  },
+  "next": {
+    "title": "Chapter 16: Capstone - Complete VLA System Integration",
+    "permalink": "/docs/module4-vla-systems/ch16-capstone"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "module2-digital-twin/ch06-gazebo-physics",
+  "title": "Chapter 6: Advanced Gazebo Physics and Simulation",
+  "description": "Understanding Gazebo Physics Engine",
+  "source": "@site/docs/module2-digital-twin/ch06-gazebo-physics.md",
+  "sourceDirName": "module2-digital-twin",
+  "slug": "/module2-digital-twin/ch06-gazebo-physics",
+  "permalink": "/docs/module2-digital-twin/ch06-gazebo-physics",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module2-digital-twin/ch06-gazebo-physics.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 5: The Digital Twin - Gazebo & Unity Integration",
+    "permalink": "/docs/module2-digital-twin/ch05-robot-description"
+  },
+  "next": {
+    "title": "Chapter 7: Unity Visualization for Robotics",
+    "permalink": "/docs/module2-digital-twin/ch07-unity-viz"
+  }
+}

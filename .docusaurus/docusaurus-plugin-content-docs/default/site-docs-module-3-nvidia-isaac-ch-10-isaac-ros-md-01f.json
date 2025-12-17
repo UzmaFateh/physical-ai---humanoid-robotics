@@ -1,0 +1,27 @@
+{
+  "id": "module3-nvidia-isaac/ch10-isaac-ros",
+  "title": "Chapter 10: Isaac ROS - Perception and Navigation",
+  "description": "Introduction to Isaac ROS",
+  "source": "@site/docs/module3-nvidia-isaac/ch10-isaac-ros.md",
+  "sourceDirName": "module3-nvidia-isaac",
+  "slug": "/module3-nvidia-isaac/ch10-isaac-ros",
+  "permalink": "/docs/module3-nvidia-isaac/ch10-isaac-ros",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module3-nvidia-isaac/ch10-isaac-ros.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 9: NVIDIA Isaac Sim Fundamentals",
+    "permalink": "/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals"
+  },
+  "next": {
+    "title": "Chapter 11: Isaac Navigation - Path Planning and Control",
+    "permalink": "/docs/module3-nvidia-isaac/ch11-navigation"
+  }
+}

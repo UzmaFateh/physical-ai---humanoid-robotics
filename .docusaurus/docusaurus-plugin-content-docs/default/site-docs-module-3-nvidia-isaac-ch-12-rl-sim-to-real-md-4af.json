@@ -1,0 +1,27 @@
+{
+  "id": "module3-nvidia-isaac/ch12-rl-sim-to-real",
+  "title": "Chapter 12: Reinforcement Learning and Sim-to-Real Transfer",
+  "description": "Introduction to Isaac Lab and Reinforcement Learning",
+  "source": "@site/docs/module3-nvidia-isaac/ch12-rl-sim-to-real.md",
+  "sourceDirName": "module3-nvidia-isaac",
+  "slug": "/module3-nvidia-isaac/ch12-rl-sim-to-real",
+  "permalink": "/docs/module3-nvidia-isaac/ch12-rl-sim-to-real",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module3-nvidia-isaac/ch12-rl-sim-to-real.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 11: Isaac Navigation - Path Planning and Control",
+    "permalink": "/docs/module3-nvidia-isaac/ch11-navigation"
+  },
+  "next": {
+    "title": "Chapter 13: Vision-Language Integration with AI Models",
+    "permalink": "/docs/module4-vla-systems/ch13-whisper"
+  }
+}

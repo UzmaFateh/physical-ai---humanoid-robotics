@@ -1,0 +1,23 @@
+{
+  "id": "intro",
+  "title": "Physical AI & Humanoid Robotics Course",
+  "description": "Why Physical AI Matters",
+  "source": "@site/docs/intro.md",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Introduction to ROS 2: The Robotic Nervous System",
+    "permalink": "/docs/module1-ros2/ch01-intro-to-ros2"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+  "title": "Chapter 9: NVIDIA Isaac Sim Fundamentals",
+  "description": "Introduction to NVIDIA Isaac",
+  "source": "@site/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals.md",
+  "sourceDirName": "module3-nvidia-isaac",
+  "slug": "/module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+  "permalink": "/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/physical-ai-humanoid-robotics/physical-ai-humanoid-robotics/tree/main/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 8: Integration and Deployment of Digital Twin Systems",
+    "permalink": "/docs/module2-digital-twin/ch08-integration"
+  },
+  "next": {
+    "title": "Chapter 10: Isaac ROS - Perception and Navigation",
+    "permalink": "/docs/module3-nvidia-isaac/ch10-isaac-ros"
+  }
+}

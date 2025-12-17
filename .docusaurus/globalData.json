@@ -1,0 +1,113 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "intro",
+          "docs": [
+            {
+              "id": "intro",
+              "path": "/docs/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module1-ros2/ch01-intro-to-ros2",
+              "path": "/docs/module1-ros2/ch01-intro-to-ros2",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module1-ros2/ch02-concepts",
+              "path": "/docs/module1-ros2/ch02-concepts",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module1-ros2/ch03-packages",
+              "path": "/docs/module1-ros2/ch03-packages",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module1-ros2/ch04-urdf-launch-files",
+              "path": "/docs/module1-ros2/ch04-urdf-launch-files",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module2-digital-twin/ch05-robot-description",
+              "path": "/docs/module2-digital-twin/ch05-robot-description",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module2-digital-twin/ch06-gazebo-physics",
+              "path": "/docs/module2-digital-twin/ch06-gazebo-physics",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module2-digital-twin/ch07-unity-viz",
+              "path": "/docs/module2-digital-twin/ch07-unity-viz",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module2-digital-twin/ch08-integration",
+              "path": "/docs/module2-digital-twin/ch08-integration",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+              "path": "/docs/module3-nvidia-isaac/ch09-isaac-sim-fundamentals",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module3-nvidia-isaac/ch10-isaac-ros",
+              "path": "/docs/module3-nvidia-isaac/ch10-isaac-ros",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module3-nvidia-isaac/ch11-navigation",
+              "path": "/docs/module3-nvidia-isaac/ch11-navigation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module3-nvidia-isaac/ch12-rl-sim-to-real",
+              "path": "/docs/module3-nvidia-isaac/ch12-rl-sim-to-real",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module4-vla-systems/ch13-whisper",
+              "path": "/docs/module4-vla-systems/ch13-whisper",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module4-vla-systems/ch14-llm-planning",
+              "path": "/docs/module4-vla-systems/ch14-llm-planning",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module4-vla-systems/ch15-plans-to-actions",
+              "path": "/docs/module4-vla-systems/ch15-plans-to-actions",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module4-vla-systems/ch16-capstone",
+              "path": "/docs/module4-vla-systems/ch16-capstone",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/docs/intro",
+                "label": "intro"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}
